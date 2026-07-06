@@ -1,17 +1,37 @@
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEngine.InputSystem;
 using UnityEngine;
 
 public class PlayerRopeManager : MonoBehaviour
 {
-    [Header("ƒ[ƒv‚É‚Â‚¢‚Ä‚éƒIƒuƒWƒFƒNƒg‚ÌƒŠƒXƒg")]
+    public MouseWorldPointer mouseWorldPointer;
+    [Header("ï¿½ï¿½ï¿½[ï¿½vï¿½É‚Â‚ï¿½ï¿½Ä‚ï¿½Iï¿½uï¿½Wï¿½Fï¿½Nï¿½gï¿½Ìƒï¿½ï¿½Xï¿½g")]
     public List<GameObject> towList = new List<GameObject>();
-    [Header("ƒ[ƒv‚Ì’·‚³")]
+    [Header("ï¿½ï¿½ï¿½[ï¿½vï¿½Ì’ï¿½ï¿½ï¿½")]
     public float ropeLength = 5f;
+
+    bool isLeftClicked;
+    bool isRightClicked;
 
     void FixedUpdate()
     {
         UpdateRope();
+
+    }
+
+    private void Update()
+    {
+        isLeftClicked = Mouse.current.leftButton.wasPressedThisFrame;
+        isRightClicked = Mouse.current.rightButton.wasPressedThisFrame;
+
+        if (isLeftClicked == true)
+        {
+            if (towList.Count > 0)
+            {
+                ThrowingScrap(towList.Count - 1);
+            }
+        }
     }
 
     public void UpdateRope()
@@ -26,14 +46,13 @@ public class PlayerRopeManager : MonoBehaviour
             {
                 direction = (towObject.transform.position - transform.position).normalized;
                 distance = Vector3.Distance(towObject.transform.position, transform.position);
-                // ƒ[ƒv‚Ì’·‚³‚ğ’´‚¦‚½ê‡AƒIƒuƒWƒFƒNƒg‚ğˆø‚«Šñ‚¹‚é
                 newPosition = transform.position + direction * ropeLength;
+                //newPosition = this.transform.position + new Vector3(0, 1, 0);
             }
             else
             {
                 direction = (towObject.transform.position - towList[i - 1].transform.position).normalized;
                 distance = Vector3.Distance(towObject.transform.position, towList[i - 1].transform.position);
-                // ƒ[ƒv‚Ì’·‚³‚ğ’´‚¦‚½ê‡AƒIƒuƒWƒFƒNƒg‚ğˆø‚«Šñ‚¹‚é
                 newPosition = towList[i - 1].transform.position + direction * ropeLength;
             }
             if (distance > ropeLength)
@@ -48,6 +67,7 @@ public class PlayerRopeManager : MonoBehaviour
         if (collision.gameObject.CompareTag("Scrap"))
         {
             BaseScrap scrap = collision.gameObject.GetComponent<BaseScrap>();
+            collision.gameObject.layer = LayerMask.NameToLayer("Ignore Collision");
             if (scrap.isTethered == false)
             {
                 scrap.isTethered = true;
@@ -55,4 +75,13 @@ public class PlayerRopeManager : MonoBehaviour
             }
         }
     }
+    public void ThrowingScrap(int removeIndex)
+    {
+        GameObject removeObj = towList[removeIndex];
+        removeObj.layer = 0;
+        removeObj.GetComponent<BaseScrap>().isTethered = false;
+        towList.RemoveAt(removeIndex);
+        removeObj.GetComponent<Rigidbody>().AddForce(ThrowVectorGetter.CalculateLaunchVectorWithFixedSpeed(removeObj.transform.position, mouseWorldPointer.GetLastPosOrDefault(), 20.0f), ForceMode.Impulse);
+    }
+
 }

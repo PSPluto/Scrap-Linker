@@ -18,5 +18,7 @@ public class MouseWorldPointer : MonoBehaviour
         return null;
     }
 
+    // これ、すごい書き方！
+    // => と書くと、1行で関数を定義できる。returnもかける（ここではクラスで宣言されたメソッド外の変数を返してる。）。
     public Vector3 GetLastPosOrDefault() => lastCastPos;
 }
