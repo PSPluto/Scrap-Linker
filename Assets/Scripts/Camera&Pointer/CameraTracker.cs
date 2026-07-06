@@ -9,6 +9,7 @@ public class CameraTracker : MonoBehaviour
 
     private MouseWorldPointer pointer;
     private CameraFollower follower;
+    [SerializeField] private float width = 0.1f;
 
     void Awake()
     {
@@ -20,7 +21,7 @@ public class CameraTracker : MonoBehaviour
     {
         Vector3 castPos = pointer.Raycast().GetValueOrDefault(pointer.GetLastPosOrDefault());
 
-        follower.FollowTo(Vector3.Lerp(target.position, castPos, 0.1f));
+        follower.FollowTo(Vector3.Lerp(target.position, castPos, width));
         tensileApplier.ApplyForceAt(castPos);
     }
 }
