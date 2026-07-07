@@ -352,6 +352,7 @@ MonoBehaviour:
   mouseWorldPointer: {fileID: 1353319304}
   towList: []
   ropeLength: 1
+  requiredSpeed: 63.3
 --- !u!1001 &108244565
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -362,7 +363,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1205026344315079262, guid: a05a102eac7d6784d9eff5861a9f1f19, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.0131576
+      value: 2.605
       objectReference: {fileID: 0}
     - target: {fileID: 1205026344315079262, guid: a05a102eac7d6784d9eff5861a9f1f19, type: 3}
       propertyPath: m_LocalPosition.y
@@ -370,7 +371,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1205026344315079262, guid: a05a102eac7d6784d9eff5861a9f1f19, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.07521928
+      value: -0.681
       objectReference: {fileID: 0}
     - target: {fileID: 1205026344315079262, guid: a05a102eac7d6784d9eff5861a9f1f19, type: 3}
       propertyPath: m_LocalRotation.w
@@ -641,7 +642,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1205026344315079262, guid: a05a102eac7d6784d9eff5861a9f1f19, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.2587917
+      value: 3.382
       objectReference: {fileID: 0}
     - target: {fileID: 1205026344315079262, guid: a05a102eac7d6784d9eff5861a9f1f19, type: 3}
       propertyPath: m_LocalPosition.y
@@ -649,7 +650,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1205026344315079262, guid: a05a102eac7d6784d9eff5861a9f1f19, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.028910493
+      value: 0.161
       objectReference: {fileID: 0}
     - target: {fileID: 1205026344315079262, guid: a05a102eac7d6784d9eff5861a9f1f19, type: 3}
       propertyPath: m_LocalRotation.w
@@ -698,7 +699,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1205026344315079262, guid: a05a102eac7d6784d9eff5861a9f1f19, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.5073974
+      value: 3.497
       objectReference: {fileID: 0}
     - target: {fileID: 1205026344315079262, guid: a05a102eac7d6784d9eff5861a9f1f19, type: 3}
       propertyPath: m_LocalPosition.y
@@ -706,7 +707,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1205026344315079262, guid: a05a102eac7d6784d9eff5861a9f1f19, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.055210542
+      value: 0.911
       objectReference: {fileID: 0}
     - target: {fileID: 1205026344315079262, guid: a05a102eac7d6784d9eff5861a9f1f19, type: 3}
       propertyPath: m_LocalRotation.w
@@ -942,7 +943,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CameraTracker
   target: {fileID: 46568577}
   tensileApplier: {fileID: 1353319305}
-  width: 0.1
+  width: 0.2
 --- !u!1001 &1773805651
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -961,7 +962,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1205026344315079262, guid: a05a102eac7d6784d9eff5861a9f1f19, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.103847936
+      value: 1.218
       objectReference: {fileID: 0}
     - target: {fileID: 1205026344315079262, guid: a05a102eac7d6784d9eff5861a9f1f19, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1018,7 +1019,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1205026344315079262, guid: a05a102eac7d6784d9eff5861a9f1f19, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.03220245
+      value: 0.72
       objectReference: {fileID: 0}
     - target: {fileID: 1205026344315079262, guid: a05a102eac7d6784d9eff5861a9f1f19, type: 3}
       propertyPath: m_LocalRotation.w
