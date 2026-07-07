@@ -25,8 +25,8 @@ public class PlayerRopeManager : MonoBehaviour
             if (towList.Count > 0)
             {
                 ThrowingScrap(0);
-                isLeftClicked = false;
             }
+            isLeftClicked = false;
         }
 
     }
