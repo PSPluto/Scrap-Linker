@@ -7,7 +7,15 @@ public class WallObstacle : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         Debug.Log($"{collision}ÅF{collision.impulse.magnitude / Time.fixedDeltaTime}");
-        if((collision.impulse.magnitude / Time.fixedDeltaTime) <= threshold)
+        //if ((collision.impulse.magnitude / Time.fixedDeltaTime) > 150)
+        //{
+        //    MergedScrap mergedScrap = collision.gameObject.GetComponent<MergedScrap>();
+        //    if (mergedScrap != null)
+        //    {
+        //        mergedScrap.Pearentbrake();
+        //    }
+        //}
+        if ((collision.impulse.magnitude / Time.fixedDeltaTime) <= threshold)
         {
             return;
         }

@@ -295,6 +295,7 @@ MonoBehaviour:
   mouseWorldPointer: {fileID: 1353319304}
   ropeLength: 1
   requiredSpeed: 63.3
+  mergedScrapPrefab: {fileID: 4338771892063448774, guid: 79458c73ac5b9e5488e920554a681dc6, type: 3}
 --- !u!1001 &289722596
 PrefabInstance:
   m_ObjectHideFlags: 0

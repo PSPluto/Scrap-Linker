@@ -17,17 +17,21 @@ public class PlayerRopeManager : MonoBehaviour
 
     public float requiredSpeed = 4f;
 
+    [SerializeField]private GameObject mergedScrapPrefab;
+
     void FixedUpdate()
     {
-        UpdateRope();
         if (isLeftClicked == true)
         {
             ThrowingScrap(0);
+            isLeftClicked = false;
         }
         if (isRightClicked == true)
         {
             MargeThorowScrap();
+            isRightClicked = false;
         }
+        UpdateRope();
 
     }
 
@@ -37,7 +41,10 @@ public class PlayerRopeManager : MonoBehaviour
         {
             isLeftClicked = true;
         }
-        isRightClicked = Mouse.current.rightButton.wasPressedThisFrame;
+        if (Mouse.current.rightButton.wasPressedThisFrame)
+        {
+            isRightClicked = true;
+        }
     }
 
     public void UpdateRope()
@@ -96,7 +103,7 @@ public class PlayerRopeManager : MonoBehaviour
     }
     public void ThrowingScrap(int removeIndex)
     {
-        if (towList.Count !> 0)
+        if (towList.Count <= 0)
         {
             return;
         }
@@ -129,22 +136,23 @@ public class PlayerRopeManager : MonoBehaviour
             return;
         }
         RopeElement listZeroObj = towList[0];
-        if (listZeroObj.gameObj.transform.parent == null)
+        if (listZeroObj.gameObj.GetComponent<MergedScrap>() == null)
         {
-            GameObject mergedScrapObj = new GameObject("mergedScrap");
-            mergedScrapObj.AddComponent<Rigidbody>();
-            mergedScrapObj.AddComponent<SphereCollider>();
-
+            GameObject mergedScrapObj = Instantiate(mergedScrapPrefab);
 
             listZeroObj.gameObj.transform.parent = mergedScrapObj.transform;
+            listZeroObj.gameObj.GetComponent<Rigidbody>().isKinematic = true;
+            System.Array.ForEach(listZeroObj.gameObj.GetComponents<Collider>(), c => c.enabled = false);
             towList[0] = new RopeElement { gameObj = mergedScrapObj, rb = mergedScrapObj.GetComponent<Rigidbody>() };
+            listZeroObj.gameObj.transform.localPosition = new Vector3(Random.Range(-0.5f,0.5f), Random.Range(-0.5f, 0.5f), Random.Range(-0.5f, 0.5f));
 
-            // radius、Massだけ
+            // radius、Mass
         }
-        else
-        {
-            // 分岐の判定、いい方法思いつかない。
-        }
+        towList[1].gameObj.GetComponent<Rigidbody>().isKinematic = true;
+        System.Array.ForEach(towList[1].gameObj.GetComponents<Collider>(), c => c.enabled = false);
+        towList[1].gameObj.transform.parent = towList[0].gameObj.transform;
+        towList[1].gameObj.transform.localPosition = new Vector3(Random.Range(-0.5f, 0.5f), Random.Range(-0.5f, 0.5f), Random.Range(-0.5f, 0.5f));
+        towList.RemoveAt(1);
     }
 
 }
