@@ -22,11 +22,11 @@ public class PlayerRopeManager : MonoBehaviour
         UpdateRope();
         if (isLeftClicked == true)
         {
-            if (towList.Count > 0)
-            {
-                ThrowingScrap(0);
-            }
-            isLeftClicked = false;
+            ThrowingScrap(0);
+        }
+        if (isRightClicked == true)
+        {
+            MargeThorowScrap();
         }
 
     }
@@ -96,7 +96,11 @@ public class PlayerRopeManager : MonoBehaviour
     }
     public void ThrowingScrap(int removeIndex)
     {
-        GameObject removeObj = towList[removeIndex].gameObj;
+        if (towList.Count !> 0)
+        {
+            return;
+        }
+            GameObject removeObj = towList[removeIndex].gameObj;
         removeObj.layer = 0;
         removeObj.GetComponent<BaseScrap>().isTethered = false;
 
@@ -116,6 +120,31 @@ public class PlayerRopeManager : MonoBehaviour
 
         towList.RemoveAt(removeIndex);
 
+    }
+
+    public void MargeThorowScrap()
+    {
+        if (towList.Count < 2)
+        {
+            return;
+        }
+        RopeElement listZeroObj = towList[0];
+        if (listZeroObj.gameObj.transform.parent == null)
+        {
+            GameObject mergedScrapObj = new GameObject("mergedScrap");
+            mergedScrapObj.AddComponent<Rigidbody>();
+            mergedScrapObj.AddComponent<SphereCollider>();
+
+
+            listZeroObj.gameObj.transform.parent = mergedScrapObj.transform;
+            towList[0] = new RopeElement { gameObj = mergedScrapObj, rb = mergedScrapObj.GetComponent<Rigidbody>() };
+
+            // radius、Massだけ
+        }
+        else
+        {
+            // 分岐の判定、いい方法思いつかない。
+        }
     }
 
 }
