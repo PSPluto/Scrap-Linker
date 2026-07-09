@@ -79,7 +79,6 @@ public class PlayerRopeManager : MonoBehaviour
             }
             if (distance > ropeLength)
             {
-
                 towList[i].rb.MovePosition(newPosition);
             }
         }
@@ -141,17 +140,22 @@ public class PlayerRopeManager : MonoBehaviour
             GameObject mergedScrapObj = Instantiate(mergedScrapPrefab);
 
             listZeroObj.gameObj.transform.parent = mergedScrapObj.transform;
-            listZeroObj.gameObj.GetComponent<Rigidbody>().isKinematic = true;
+            listZeroObj.rb.isKinematic = true;
             System.Array.ForEach(listZeroObj.gameObj.GetComponents<Collider>(), c => c.enabled = false);
             towList[0] = new RopeElement { gameObj = mergedScrapObj, rb = mergedScrapObj.GetComponent<Rigidbody>() };
-            listZeroObj.gameObj.transform.localPosition = new Vector3(Random.Range(-0.5f,0.5f), Random.Range(-0.5f, 0.5f), Random.Range(-0.5f, 0.5f));
+            listZeroObj.gameObj.transform.localPosition = new Vector3(Random.Range(-0.2f,0.2f), Random.Range(-0.2f, 0.2f), Random.Range(-0.2f, 0.2f));
+            listZeroObj.gameObj.transform.LookAt(towList[0].gameObj.transform);
+
+            towList[0].rb.mass += listZeroObj.rb.mass;
 
             // radius、Mass
         }
         towList[1].gameObj.GetComponent<Rigidbody>().isKinematic = true;
         System.Array.ForEach(towList[1].gameObj.GetComponents<Collider>(), c => c.enabled = false);
         towList[1].gameObj.transform.parent = towList[0].gameObj.transform;
-        towList[1].gameObj.transform.localPosition = new Vector3(Random.Range(-0.5f, 0.5f), Random.Range(-0.5f, 0.5f), Random.Range(-0.5f, 0.5f));
+        towList[1].gameObj.transform.localPosition = new Vector3(Random.Range(-0.2f, 0.2f), Random.Range(-0.2f, 0.2f), Random.Range(-0.2f, 0.2f));
+        towList[1].gameObj.transform.LookAt(towList[0].gameObj.transform);
+        towList[0].rb.mass += towList[1].rb.mass;
         towList.RemoveAt(1);
     }
 

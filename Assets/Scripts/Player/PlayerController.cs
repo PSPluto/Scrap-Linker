@@ -72,5 +72,8 @@ public class PlayerController : MonoBehaviour
                 Quaternion.RotateTowards(playerRB.rotation, targetRot, rotationSpeed * Time.fixedDeltaTime)
             );
         }
+
+
+        //playerRB.rotation = Quaternion.Lerp(playerRB.rotation, Quaternion.Euler(0, 0, 0),0.2f);
     }
 }
