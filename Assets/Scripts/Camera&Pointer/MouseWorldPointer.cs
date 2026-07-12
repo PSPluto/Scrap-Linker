@@ -3,7 +3,8 @@ using UnityEngine.InputSystem;
 
 public class MouseWorldPointer : MonoBehaviour
 {
-    private Vector3 lastCastPos = Vector3.zero;
+    private RaycastHit lastCastHit;
+
 
     // マウス座標に向かってレイを飛ばし、ヒットした座標を返す
     public Vector3? Raycast()
@@ -12,13 +13,12 @@ public class MouseWorldPointer : MonoBehaviour
         Ray ray = Camera.main.ScreenPointToRay(mousePos);
         if (Physics.Raycast(ray, out RaycastHit hit))
         {
-            lastCastPos = hit.point;
+            lastCastHit = hit;
             return hit.point;
         }
         return null;
     }
 
-    // これ、すごい書き方！
-    // => と書くと、1行で関数を定義できる。returnもかける（ここではクラスで宣言されたメソッド外の変数を返してる。）。
-    public Vector3 GetLastPosOrDefault() => lastCastPos;
+    // 1行で関数を宣言できる。returnもかける（ここではクラスで宣言されたメソッド外の変数を返してる。）。
+    public RaycastHit GetLastPosOrDefault() => lastCastHit;
 }

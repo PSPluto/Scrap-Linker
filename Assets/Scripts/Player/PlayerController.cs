@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
 {
     public Rigidbody playerRB;
     public float maxMoveSpeed = 10f;
+    public Animator playerAnimator;
 
     [Range(0.01f, 1f)]
     public float accelerationSmooth = 0.1f;
@@ -16,6 +17,9 @@ public class PlayerController : MonoBehaviour
 
     [Header("停止判定")]
     [SerializeField] private float stopThreshold = 0.05f;
+
+    [SerializeField]private Vector3 currentVelocity;
+
 
     // WASD入力値
     private Vector2 value = Vector2.zero;
@@ -43,11 +47,14 @@ public class PlayerController : MonoBehaviour
     
     public void Move()
     {
+        currentVelocity = Vector3.zero;
         // 目標速度
         Vector3 targetVelocity = new Vector3(value.x * maxMoveSpeed, 0f, value.y * maxMoveSpeed);
 
         // 現在の速度を取得（y無視）
-        Vector3 currentVelocity = new Vector3(playerRB.linearVelocity.x, 0f, playerRB.linearVelocity.z);
+        currentVelocity = new Vector3(playerRB.linearVelocity.x, 0f, playerRB.linearVelocity.z);
+        playerAnimator.SetFloat("Speed", currentVelocity.magnitude);
+
 
         // 最高速度まで速度加算
         Vector3 nextVelocity = Vector3.Lerp(currentVelocity, targetVelocity, accelerationSmooth);

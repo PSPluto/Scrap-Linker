@@ -19,7 +19,7 @@ public class CameraTracker : MonoBehaviour
 
     void LateUpdate()
     {
-        Vector3 castPos = pointer.Raycast().GetValueOrDefault(pointer.GetLastPosOrDefault());
+        Vector3 castPos = pointer.Raycast().GetValueOrDefault(pointer.GetLastPosOrDefault().point);
 
         follower.FollowTo(Vector3.Lerp(target.position, castPos, width));
         tensileApplier.ApplyForceAt(castPos);

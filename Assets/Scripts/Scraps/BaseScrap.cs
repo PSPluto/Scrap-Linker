@@ -9,6 +9,7 @@ public class BaseScrap : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         myRb.linearDamping = damp;
+        myRb.excludeLayers = 0;
 
     }
 }

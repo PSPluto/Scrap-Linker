@@ -57,6 +57,7 @@ public class PlayerRopeManager : MonoBehaviour
             Vector3 newPosition;
             if (i == 0)
             {
+                towList[i].rb.excludeLayers = LayerMask.GetMask("Ignore Collision");
                 newPosition = this.transform.position + new Vector3(0,1f,0);
                 towList[i].rb.MovePosition(newPosition);
                 towList[i].rb.linearVelocity = new Vector3(0, 0, 0);
@@ -64,6 +65,7 @@ public class PlayerRopeManager : MonoBehaviour
             }
             else
             {
+                towList[i].rb.excludeLayers = 0;
                 if (i == 1)
                 {
                     direction = (towObject.transform.position - transform.position).normalized;
@@ -106,6 +108,7 @@ public class PlayerRopeManager : MonoBehaviour
         {
             return;
         }
+
             GameObject removeObj = towList[removeIndex].gameObj;
         removeObj.layer = 0;
         removeObj.GetComponent<BaseScrap>().isTethered = false;
@@ -113,11 +116,10 @@ public class PlayerRopeManager : MonoBehaviour
         Rigidbody removeObjRb = towList[removeIndex].rb;
         removeObjRb.linearDamping = 0f;
 
-
-       removeObjRb.AddForce(
+        removeObjRb.AddForce(
             ThrowVectorGetter.CalculateLaunchVectorWithApexHeight(
                 removeObj.transform.position,
-                mouseWorldPointer.GetLastPosOrDefault(),
+                mouseWorldPointer.GetLastPosOrDefault().point,
                 2.0f,
                 out requiredSpeed
             ),

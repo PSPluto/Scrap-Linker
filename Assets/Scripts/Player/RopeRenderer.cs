@@ -6,6 +6,7 @@ public class RopeRenderer : MonoBehaviour
     [SerializeField] Transform playerTransform;
     [SerializeField] PlayerRopeManager ropeManager;
     [SerializeField] LineRenderer lineRenderer;
+    [SerializeField] Vector3 offset;
 
     void Update()
     {
@@ -21,7 +22,7 @@ public class RopeRenderer : MonoBehaviour
         lineRenderer.positionCount = ropeElements.Length;
 
 
-        lineRenderer.SetPosition(0, playerTransform.position);
+        lineRenderer.SetPosition(0, playerTransform.position + offset);
         for (int i = 1; i < ropeElements.Length; i++)
         {
             lineRenderer.SetPosition(i, ropeElements[i].gameObj.transform.position);
