@@ -205,7 +205,7 @@ MonoBehaviour:
   maxMoveSpeed: 4
   playerAnimator: {fileID: 1884771171}
   accelerationSmooth: 0.1
-  rotationSpeed: 900
+  rotationSpeed: 700
   stopThreshold: 0.05
   currentVelocity: {x: 0, y: 0, z: 0}
 --- !u!54 &46568579
@@ -1155,7 +1155,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TensileForceApplier
   player: {fileID: 46568577}
-  tensileForce: 1
+  tensileForce: 3
   tensileAreaSize: 1
 --- !u!114 &1353319306
 MonoBehaviour:
