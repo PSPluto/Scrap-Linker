@@ -67,7 +67,7 @@ Rigidbody:
   m_GameObject: {fileID: 6651922723875957840}
   serializedVersion: 5
   m_Mass: 4
-  m_LinearDamping: 0
+  m_LinearDamping: 2
   m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
@@ -97,9 +97,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d55fa682255a3a249bb8f4c0e9a848e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BaseScrap
-  isTethered: 0
-  damp: 2
   myRb: {fileID: 7850867930361259623}
+  damp: 2
+  weakDamage: 0
+  weakHitThreshold: 0
+  weakHitSound: {fileID: 0}
+  baseDamage: 0
+  baseHitSound: {fileID: 0}
+  CriticalDamage: 0
+  criticalHitThreshold: 0
+  criticalHitSound: {fileID: 0}
+  noDamageThreshold: 0
+  noDamageSound: {fileID: 0}
+  scrapState: 2
 --- !u!1001 &7229045055600979543
 PrefabInstance:
   m_ObjectHideFlags: 0

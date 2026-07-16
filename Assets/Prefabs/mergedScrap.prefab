@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7204333510231401974}
   - component: {fileID: 2865955638092286052}
   - component: {fileID: 5959379631266365702}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: mergedScrap
   m_TagString: Untagged
   m_Icon: {fileID: 0}

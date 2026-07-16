@@ -57,10 +57,12 @@ public class PlayerRopeManager : MonoBehaviour
             Vector3 newPosition;
             if (i == 0)
             {
+                towList[i].gameObj.layer = LayerMask.NameToLayer("Ignore Collision");
                 towList[i].rb.excludeLayers = LayerMask.GetMask("Ignore Collision");
-                newPosition = this.transform.position + new Vector3(0,1f,0);
+                newPosition = this.transform.position + new Vector3(0,0.75f,0);
                 towList[i].rb.MovePosition(newPosition);
                 towList[i].rb.linearVelocity = new Vector3(0, 0, 0);
+                towList[i].rb.MoveRotation(transform.rotation);
                 continue;
             }
             else
@@ -81,7 +83,7 @@ public class PlayerRopeManager : MonoBehaviour
             }
             if (distance > ropeLength)
             {
-                towList[i].rb.MovePosition(newPosition);
+                towList[i].rb.MovePosition(Vector3.Lerp(towList[i].gameObj.transform.position, newPosition , 0.2f));
             }
         }
     }
@@ -91,10 +93,9 @@ public class PlayerRopeManager : MonoBehaviour
         if (collision.gameObject.CompareTag("Scrap"))
         {
             BaseScrap scrap = collision.gameObject.GetComponent<BaseScrap>();
-            collision.gameObject.layer = LayerMask.NameToLayer("Ignore Collision");
-            if (scrap.isTethered == false)
+            if (scrap.scrapState != BaseScrap.ScrapState.Tethered)
             {
-                scrap.isTethered = true;
+                scrap.scrapState = BaseScrap.ScrapState.Tethered;
                 towList.Add(new RopeElement{
                     gameObj = collision.gameObject,
                     rb = collision.gameObject.GetComponent<Rigidbody>()
@@ -104,18 +105,14 @@ public class PlayerRopeManager : MonoBehaviour
     }
     public void ThrowingScrap(int removeIndex)
     {
+        // ロープからの削除、投擲
         if (towList.Count <= 0)
         {
             return;
         }
-
-            GameObject removeObj = towList[removeIndex].gameObj;
-        removeObj.layer = 0;
-        removeObj.GetComponent<BaseScrap>().isTethered = false;
-
+        // 投擲
+        GameObject removeObj = towList[removeIndex].gameObj;
         Rigidbody removeObjRb = towList[removeIndex].rb;
-        removeObjRb.linearDamping = 0f;
-
         removeObjRb.AddForce(
             ThrowVectorGetter.CalculateLaunchVectorWithApexHeight(
                 removeObj.transform.position,
@@ -125,13 +122,17 @@ public class PlayerRopeManager : MonoBehaviour
             ),
             ForceMode.VelocityChange
         );
+        // 投げたもののStateを変更
+        removeObj.GetComponent<BaseScrap>().scrapState = BaseScrap.ScrapState.InFlight;
 
+        // ロープの管理下から外す。
         towList.RemoveAt(removeIndex);
 
     }
 
     public void MargeThorowScrap()
     {
+        // Scrapの合体
         if (towList.Count < 2)
         {
             return;

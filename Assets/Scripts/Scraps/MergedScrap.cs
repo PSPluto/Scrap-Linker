@@ -13,12 +13,11 @@ public class MergedScrap : MonoBehaviour
         foreach (Transform child in children)
         {
             child.parent = null;
-            //child.transform.position += new Vector3(0, 1, 0);
             Rigidbody childRb = child.GetComponent<Rigidbody>();
             childRb.isKinematic = false;
             childRb.AddForce(new Vector3(Random.Range(-5, 5), Random.Range(3, 10), Random.Range(-5, 5)), ForceMode.VelocityChange);
             System.Array.ForEach(child.GetComponents<Collider>(), c => c.enabled = true);
-            child.GetComponent<BaseScrap>().isTethered = false;
+            child.GetComponent<BaseScrap>().scrapState = BaseScrap.ScrapState.InFlight;
         }
 
         Destroy(gameObject);

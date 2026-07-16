@@ -27,7 +27,7 @@ public class TensileForceApplier : MonoBehaviour
                     if (colliderRb == null) continue;
 
                     BaseScrap scrap = colliderRb.gameObject.GetComponent<BaseScrap>();
-                    if (scrap != null && !scrap.isTethered)
+                    if (scrap != null && scrap.scrapState == BaseScrap.ScrapState.usually)
                     {
                         Vector3 dir = (colliderRb.position - player.position).normalized;
                         colliderRb.AddForce(dir * (-1 * tensileForce), ForceMode.Acceleration);
