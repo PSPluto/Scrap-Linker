@@ -1,4 +1,6 @@
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class BaseScrap : MonoBehaviour
 {
@@ -7,15 +9,18 @@ public class BaseScrap : MonoBehaviour
     {
         // ロープに従っている状態
         Tethered,
+        // プレイヤーに持ち上げられている状態
+        Lifted,
         // 投げられている状態
         InFlight,
         // 通常状態
-        usually
+        Usually
     }
 
     [Header ("=== Rigidbody ===")]
         [SerializeField] private Rigidbody myRb;
         [Tooltip("摩擦")]public float damp = 2;
+        [Tooltip("質量")]public float mass = 1f; 
 
     [Header ("=== Scrapの設定 ===")]
 
@@ -29,8 +34,9 @@ public class BaseScrap : MonoBehaviour
         [Tooltip("基本ヒットの音")] public AudioClip baseHitSound;
 
 
+    [FormerlySerializedAs("CriticalDamage")]
     [Header("・強ヒット")]
-        [Tooltip("クリティカル ダメージ")] public float CriticalDamage;
+        [Tooltip("クリティカル ダメージ")] public float criticalDamage;
         [Tooltip("強ヒットの閾値 (以上)")] public float criticalHitThreshold;
         [Tooltip("強ヒットの音")] public AudioClip criticalHitSound;  
 
@@ -39,32 +45,42 @@ public class BaseScrap : MonoBehaviour
         [Tooltip("ダメージ0の音")] public AudioClip noDamageSound;
 
     [Header("=== State ===")]
-    [Tooltip("Scrapの状態")] public ScrapState scrapState = ScrapState.usually;
-    private ScrapState lastState = ScrapState.usually;
+    [Tooltip("Scrapの状態")] public ScrapState scrapState = ScrapState.Usually;
+    private ScrapState lastState = ScrapState.Usually;
 
-
+    [Tooltip("まとまった状態の1要素か")] public bool isMerged;
+    private bool isMergedLast;
 
     private void OnCollisionEnter(Collision collision)
     {
         if (scrapState == ScrapState.InFlight)
         {
-            scrapState = ScrapState.usually;
+            scrapState = ScrapState.Usually;
         }
     }
     private void Update()
     {
+        if(isMergedLast != isMerged)
+        {
+            MergeInit();
+            isMergedLast = isMerged;
+        }
         if (lastState != scrapState)
         {
             switch (scrapState)
             {
-                case ScrapState.usually:
+                case ScrapState.Usually:
                     StateUsuallyInit();
                     break;
 
                 case ScrapState.Tethered:
                     StateTetheredInit();
                     break;
-                
+
+                case ScrapState.Lifted:
+                    SteteLiftedInit();
+                    break;
+
                 case ScrapState.InFlight:
                     StateInFlightInit();    
                     break;
@@ -75,18 +91,69 @@ public class BaseScrap : MonoBehaviour
     private void StateUsuallyInit()
     {
         // 通常に戻る時の処理
-        myRb.linearDamping = damp;
-        myRb.excludeLayers = 0;
+        if (isMerged)
+        {
+            // ありえない
+        }
+        else
+        {
+            // Scrapどうし接触するように。空中での摩擦ゼロも元に戻す。
+            myRb.linearDamping = damp;
+            gameObject.layer = 0;
+        }
     }
     private void StateTetheredInit()
     {
         // ロープにつながれた瞬間の処理
+        if (isMerged)
+        {
+            // ありえない
+        }
+        else
+        {
+            myRb.excludeLayers = LayerMask.GetMask("Ignore Collision");
+        }
+    }
+    private void SteteLiftedInit()
+    {
+        // 持ち上げられた（rope内でのindexが0）瞬間の処理
+        if (isMerged)
+        {
+
+        }
+        else
+        {
+            gameObject.layer = LayerMask.NameToLayer("Ignore Collision");
+        }
     }
     private void StateInFlightInit()
     {
         // 投げられた瞬間の処理
-        myRb.linearDamping = 0;
-        gameObject.layer = 0;
+        if (isMerged)
+        {
+            myRb.linearDamping = 0;
+            myRb.excludeLayers = 0;
+        }
+        else
+        {
+            myRb.linearDamping = 0;
+            myRb.excludeLayers = 0;
+        }
+    }
+
+    private void MergeInit()
+    {
+        if (isMerged)
+        {
+            myRb.isKinematic = true;
+            System.Array.ForEach(gameObject.GetComponents<Collider>(), c => c.enabled = false);
+        }
+        else
+        {
+            transform.parent = null;
+            myRb.isKinematic = false;
+        }
+
     }
 }
 

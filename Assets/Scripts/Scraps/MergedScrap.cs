@@ -12,6 +12,7 @@ public class MergedScrap : MonoBehaviour
         }
         foreach (Transform child in children)
         {
+            
             child.parent = null;
             Rigidbody childRb = child.GetComponent<Rigidbody>();
             childRb.isKinematic = false;

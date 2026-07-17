@@ -6,5 +6,6 @@ public class RopeScrapElement
     {
         public Rigidbody rb;
         public GameObject gameObj;
+        public BaseScrap scrapScript;
     }
 }

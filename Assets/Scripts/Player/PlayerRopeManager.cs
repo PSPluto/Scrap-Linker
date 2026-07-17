@@ -7,9 +7,8 @@ using static RopeScrapElement;
 public class PlayerRopeManager : MonoBehaviour
 {
     public MouseWorldPointer mouseWorldPointer;
-    [Header("���[�v�ɂ��Ă�I�u�W�F�N�g�̃��X�g")]
-    public List<RopeElement> towList = new List<RopeElement>();
-    [Header("���[�v�̒���")]
+    [Header("ロープ")] public List<RopeElement> towList = new List<RopeElement>();
+    [Header("オブジェクトごとの間隔")]
     public float ropeLength = 5f;
 
     bool isLeftClicked;
@@ -47,7 +46,7 @@ public class PlayerRopeManager : MonoBehaviour
         }
     }
 
-    public void UpdateRope()
+    private void UpdateRope()
     {
         for (int i = 0; i < towList.Count; i++)
         {
@@ -55,19 +54,25 @@ public class PlayerRopeManager : MonoBehaviour
             GameObject towObject = towList[i].gameObj;
             float distance = 0f;
             Vector3 newPosition;
+            // 持ち上げ状態の処理
             if (i == 0)
             {
-                towList[i].gameObj.layer = LayerMask.NameToLayer("Ignore Collision");
-                towList[i].rb.excludeLayers = LayerMask.GetMask("Ignore Collision");
+                //持ち上げられた状態
                 newPosition = this.transform.position + new Vector3(0,0.75f,0);
                 towList[i].rb.MovePosition(newPosition);
                 towList[i].rb.linearVelocity = new Vector3(0, 0, 0);
                 towList[i].rb.MoveRotation(transform.rotation);
+                
+                if (towList[i].scrapScript.scrapState != BaseScrap.ScrapState.Lifted)
+                {
+                    towList[i].scrapScript.scrapState = BaseScrap.ScrapState.Lifted;
+                }
+
                 continue;
             }
             else
             {
-                towList[i].rb.excludeLayers = 0;
+                // ロープにつながった状態の処理
                 if (i == 1)
                 {
                     direction = (towObject.transform.position - transform.position).normalized;
@@ -90,20 +95,20 @@ public class PlayerRopeManager : MonoBehaviour
     public void OnCollisionEnter(Collision collision)
     {
         // ロープへの登録
-        if (collision.gameObject.CompareTag("Scrap"))
+        if (!collision.gameObject.CompareTag("Scrap")) return;
+        BaseScrap scrap = collision.gameObject.GetComponent<BaseScrap>();
+        if (scrap.scrapState != BaseScrap.ScrapState.Tethered)
         {
-            BaseScrap scrap = collision.gameObject.GetComponent<BaseScrap>();
-            if (scrap.scrapState != BaseScrap.ScrapState.Tethered)
-            {
-                scrap.scrapState = BaseScrap.ScrapState.Tethered;
-                towList.Add(new RopeElement{
-                    gameObj = collision.gameObject,
-                    rb = collision.gameObject.GetComponent<Rigidbody>()
-                });
-            }
+            scrap.scrapState = BaseScrap.ScrapState.Tethered;
+            towList.Add(new RopeElement{
+                gameObj = collision.gameObject,
+                rb = collision.gameObject.GetComponent<Rigidbody>(),
+                scrapScript = scrap
+            });
         }
     }
-    public void ThrowingScrap(int removeIndex)
+
+    private void ThrowingScrap(int removeIndex)
     {
         // ロープからの削除、投擲
         if (towList.Count <= 0)
@@ -111,11 +116,10 @@ public class PlayerRopeManager : MonoBehaviour
             return;
         }
         // 投擲
-        GameObject removeObj = towList[removeIndex].gameObj;
-        Rigidbody removeObjRb = towList[removeIndex].rb;
-        removeObjRb.AddForce(
+        RopeElement removeElement = towList[removeIndex];
+        removeElement.rb.AddForce(
             ThrowVectorGetter.CalculateLaunchVectorWithApexHeight(
-                removeObj.transform.position,
+                removeElement.gameObj.transform.position,
                 mouseWorldPointer.GetLastPosOrDefault().point,
                 2.0f,
                 out requiredSpeed
@@ -123,7 +127,7 @@ public class PlayerRopeManager : MonoBehaviour
             ForceMode.VelocityChange
         );
         // 投げたもののStateを変更
-        removeObj.GetComponent<BaseScrap>().scrapState = BaseScrap.ScrapState.InFlight;
+        removeElement.scrapScript.scrapState = BaseScrap.ScrapState.InFlight;
 
         // ロープの管理下から外す。
         towList.RemoveAt(removeIndex);
@@ -140,25 +144,30 @@ public class PlayerRopeManager : MonoBehaviour
         RopeElement listZeroObj = towList[0];
         if (listZeroObj.gameObj.GetComponent<MergedScrap>() == null)
         {
+            // もし、まとめるための親オブジェクトがないなら
             GameObject mergedScrapObj = Instantiate(mergedScrapPrefab);
-
             listZeroObj.gameObj.transform.parent = mergedScrapObj.transform;
-            listZeroObj.rb.isKinematic = true;
-            System.Array.ForEach(listZeroObj.gameObj.GetComponents<Collider>(), c => c.enabled = false);
-            towList[0] = new RopeElement { gameObj = mergedScrapObj, rb = mergedScrapObj.GetComponent<Rigidbody>() };
+            //ロープのリスト[0]をscrapをまとめるオブジェクトに置きかえ。
+            towList[0] = new RopeElement { gameObj = mergedScrapObj, rb = mergedScrapObj.GetComponent<Rigidbody>(), scrapScript = mergedScrapObj.GetComponent<BaseScrap>() };
+            
+            // 見た目
             listZeroObj.gameObj.transform.localPosition = new Vector3(Random.Range(-0.2f,0.2f), Random.Range(-0.2f, 0.2f), Random.Range(-0.2f, 0.2f));
             listZeroObj.gameObj.transform.LookAt(towList[0].gameObj.transform);
-
-            towList[0].rb.mass += listZeroObj.rb.mass;
-
-            // radius、Mass
+            
+            // 性能の受け渡し
+            towList[0].scrapScript.mass += listZeroObj.scrapScript.mass;
+            towList[0].rb.mass = towList[0].scrapScript.mass;
         }
-        towList[1].gameObj.GetComponent<Rigidbody>().isKinematic = true;
-        System.Array.ForEach(towList[1].gameObj.GetComponents<Collider>(), c => c.enabled = false);
+        
+        towList[1].scrapScript.isMerged = true;
+        // 性能受け渡し
         towList[1].gameObj.transform.parent = towList[0].gameObj.transform;
+        
+        //見ため
         towList[1].gameObj.transform.localPosition = new Vector3(Random.Range(-0.2f, 0.2f), Random.Range(-0.2f, 0.2f), Random.Range(-0.2f, 0.2f));
         towList[1].gameObj.transform.LookAt(towList[0].gameObj.transform);
-        towList[0].rb.mass += towList[1].rb.mass;
+        towList[0].scrapScript.mass += towList[1].scrapScript.mass;
+        
         towList.RemoveAt(1);
     }
 
