@@ -154,6 +154,9 @@ public class PlayerRopeManager : MonoBehaviour
             listZeroObj.gameObj.transform.localPosition = new Vector3(Random.Range(-0.2f,0.2f), Random.Range(-0.2f, 0.2f), Random.Range(-0.2f, 0.2f));
             listZeroObj.gameObj.transform.LookAt(towList[0].gameObj.transform);
             
+            // 通知
+            listZeroObj.scrapScript.isMerged = true;
+            
             // 性能の受け渡し
             towList[0].scrapScript.mass += listZeroObj.scrapScript.mass;
             towList[0].rb.mass = towList[0].scrapScript.mass;

@@ -1155,7 +1155,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TensileForceApplier
   player: {fileID: 46568577}
-  tensileForce: 3
+  tensileForce: 1
   tensileAreaSize: 1
 --- !u!114 &1353319306
 MonoBehaviour:

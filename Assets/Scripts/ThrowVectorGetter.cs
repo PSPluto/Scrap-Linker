@@ -3,29 +3,29 @@ using UnityEngine;
 public static class ThrowVectorGetter
 {
     /// <summary>
-    /// ’¸“_‚Ì‚‚³‚ğw’è‚µ‚ÄAí‚Éˆê’è‚ÌuR‚È‚èŠ´v‚Ì”­ËƒxƒNƒgƒ‹‚ğŒvZ‚·‚é
+    /// é ‚ç‚¹ã®é«˜ã•ã‚’æŒ‡å®šã—ã¦ã€å¸¸ã«ä¸€å®šã®ã€Œå±±ãªã‚Šæ„Ÿã€ã®ç™ºå°„ãƒ™ã‚¯ãƒˆãƒ«ã‚’è¨ˆç®—ã™ã‚‹
     /// </summary>
-    /// <param name="startPos">”­ËˆÊ’u</param>
-    /// <param name="targetPos">’…’n“_</param>
-    /// <param name="apexHeight">”­ËˆÊ’u‚ğŠî€‚É‚µ‚½’¸“_‚Ì‚‚³i—á: 2.0‚È‚ç2m·‚èã‚ª‚éj</param>
-    /// <param name="requiredSpeed">ŒvZŒ‹‰Ê‚Æ‚µ‚Ä•K—v‚É‚È‚é‘¬“xioutˆø”j</param>
-    /// <returns>AddForce(ForceMode.VelocityChange)‚É‚»‚Ì‚Ü‚Ü“n‚¹‚é‘¬“xƒxƒNƒgƒ‹</returns>
+    /// <param name="startPos">ç™ºå°„ä½ç½®</param>
+    /// <param name="targetPos">ç€åœ°ç‚¹</param>
+    /// <param name="apexHeight">ç™ºå°„ä½ç½®ã‚’åŸºæº–ã«ã—ãŸé ‚ç‚¹ã®é«˜ã•ï¼ˆä¾‹: 2.0ãªã‚‰2mç››ã‚Šä¸ŠãŒã‚‹ï¼‰</param>
+    /// <param name="requiredSpeed">è¨ˆç®—çµæœã¨ã—ã¦å¿…è¦ã«ãªã‚‹é€Ÿåº¦ï¼ˆoutå¼•æ•°ï¼‰</param>
+    /// <returns>AddForce(ForceMode.VelocityChange)ã«ãã®ã¾ã¾æ¸¡ã›ã‚‹é€Ÿåº¦ãƒ™ã‚¯ãƒˆãƒ«</returns>
     public static Vector3 CalculateLaunchVectorWithApexHeight(
         Vector3 startPos, Vector3 targetPos, float apexHeight, out float requiredSpeed)
     {
         Vector3 diff = targetPos - startPos;
         Vector3 horizontalDir = new Vector3(diff.x, 0f, diff.z);
-        float x = horizontalDir.magnitude; // …•½‹——£
-        float y = diff.y;                   // ‚’á·iƒ^[ƒQƒbƒg‚ª‚‚¢‚Ù‚Ç+j
+        float x = horizontalDir.magnitude; // æ°´å¹³è·é›¢
+        float y = diff.y;                   // é«˜ä½å·®ï¼ˆã‚¿ãƒ¼ã‚²ãƒƒãƒˆãŒé«˜ã„ã»ã©+ï¼‰
 
         float g = Mathf.Abs(Physics.gravity.y);
-        if (g < 0.0001f) g = 9.81f; // d—Í‚ª0İ’è‚Ìê‡‚Ì•ÛŒ¯
+        if (g < 0.0001f) g = 9.81f; // é‡åŠ›ãŒ0è¨­å®šã®å ´åˆã®ä¿é™º
 
-        // ƒ^[ƒQƒbƒg‚ªw’è‚µ‚½’¸“_‚æ‚è‚‚¢ˆÊ’u‚É‚ ‚éê‡A’¸“_‚ğ•K‚¸‚»‚ê‚æ‚èã‚É•â³‚·‚é
-        // i‚Å‚È‚¢‚Æu—‚¿‚È‚ª‚çã‚éƒ^[ƒQƒbƒgv‚É“Í‚©‚È‚¢–µ‚‚ª‹N‚«‚é‚½‚ßj
+        // ã‚¿ãƒ¼ã‚²ãƒƒãƒˆãŒæŒ‡å®šã—ãŸé ‚ç‚¹ã‚ˆã‚Šé«˜ã„ä½ç½®ã«ã‚ã‚‹å ´åˆã€é ‚ç‚¹ã‚’å¿…ãšãã‚Œã‚ˆã‚Šä¸Šã«è£œæ­£ã™ã‚‹
+        // ï¼ˆã§ãªã„ã¨ã€Œè½ã¡ãªãŒã‚‰ä¸Šã‚‹ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã€ã«å±Šã‹ãªã„çŸ›ç›¾ãŒèµ·ãã‚‹ãŸã‚ï¼‰
         float safeApex = Mathf.Max(apexHeight, y + 0.01f);
 
-        // ^ãE^‰ºi…•½‹——£‚ª‚Ù‚Ú0j‚ÍR‚È‚è‚ªì‚ê‚È‚¢‚Ì‚Å‚’¼‚É‘Å‚¿ã‚°‚é
+        // çœŸä¸Šãƒ»çœŸä¸‹ï¼ˆæ°´å¹³è·é›¢ãŒã»ã¼0ï¼‰ã¯å±±ãªã‚ŠãŒä½œã‚Œãªã„ã®ã§å‚ç›´ã«æ‰“ã¡ä¸Šã’ã‚‹
         if (x < 0.001f)
         {
             float vy0Vertical = Mathf.Sqrt(2f * g * safeApex);
@@ -35,16 +35,16 @@ public static class ThrowVectorGetter
 
         horizontalDir.Normalize();
 
-        // ’¸“_‚Ü‚Å‚Ìã¸ŠÔ
+        // é ‚ç‚¹ã¾ã§ã®ä¸Šæ˜‡æ™‚é–“
         float timeUp = Mathf.Sqrt(2f * safeApex / g);
-        // ’¸“_‚©‚çƒ^[ƒQƒbƒg‚Ì‚‚³‚Ü‚Å—‰º‚·‚éŠÔ
+        // é ‚ç‚¹ã‹ã‚‰ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã®é«˜ã•ã¾ã§è½ä¸‹ã™ã‚‹æ™‚é–“
         float fallHeight = safeApex - y;
         float timeDown = Mathf.Sqrt(2f * fallHeight / g);
 
         float totalTime = timeUp + timeDown;
-        if (totalTime < 0.0001f) totalTime = 0.0001f; // ƒ[ƒŠ„–h~
+        if (totalTime < 0.0001f) totalTime = 0.0001f; // ã‚¼ãƒ­å‰²é˜²æ­¢
 
-        // ‰‘¬‚Ì‚’¼E…•½¬•ª
+        // åˆé€Ÿã®å‚ç›´ãƒ»æ°´å¹³æˆåˆ†
         float vy0 = g * timeUp;
         float vx0 = x / totalTime;
 

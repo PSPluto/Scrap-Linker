@@ -6,7 +6,7 @@ public class WallObstacle : MonoBehaviour
     [SerializeField] private float threshold;
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log($"{collision}F{collision.impulse.magnitude / Time.fixedDeltaTime}");
+        Debug.Log($"{collision}ï¼š{collision.impulse.magnitude / Time.fixedDeltaTime}");
         //if ((collision.impulse.magnitude / Time.fixedDeltaTime) > 150)
         //{
         //    MergedScrap mergedScrap = collision.gameObject.GetComponent<MergedScrap>();

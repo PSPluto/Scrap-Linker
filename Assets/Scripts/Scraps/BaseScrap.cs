@@ -7,48 +7,48 @@ public class BaseScrap : MonoBehaviour
 
     public enum ScrapState
     {
-        // ƒ[ƒv‚É]‚Á‚Ä‚¢‚éó‘Ô
+        // ãƒ­ãƒ¼ãƒ—ã«å¾“ã£ã¦ã„ã‚‹çŠ¶æ…‹
         Tethered,
-        // ƒvƒŒƒCƒ„[‚É‚¿ã‚°‚ç‚ê‚Ä‚¢‚éó‘Ô
+        // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã«æŒã¡ä¸Šã’ã‚‰ã‚Œã¦ã„ã‚‹çŠ¶æ…‹
         Lifted,
-        // “Š‚°‚ç‚ê‚Ä‚¢‚éó‘Ô
+        // æŠ•ã’ã‚‰ã‚Œã¦ã„ã‚‹çŠ¶æ…‹
         InFlight,
-        // ’Êíó‘Ô
+        // é€šå¸¸çŠ¶æ…‹
         Usually
     }
 
     [Header ("=== Rigidbody ===")]
         [SerializeField] private Rigidbody myRb;
-        [Tooltip("–€C")]public float damp = 2;
-        [Tooltip("¿—Ê")]public float mass = 1f; 
+        [Tooltip("æ‘©æ“¦")]public float damp = 2;
+        [Tooltip("è³ªé‡")]public float mass = 1f; 
 
-    [Header ("=== Scrap‚Ìİ’è ===")]
+    [Header ("=== Scrapã®è¨­å®š ===")]
 
-    [Header("Eãƒqƒbƒg")]
-        [Tooltip("ã ƒ_ƒ[ƒW")] public float weakDamage;
-        [Tooltip("ãƒqƒbƒg‚Ìè‡’l (ˆÈ‰º)")] public float weakHitThreshold;
-        [Tooltip("ãƒqƒbƒg‚Ì‰¹")] public AudioClip weakHitSound;
+    [Header("ãƒ»å¼±ãƒ’ãƒƒãƒˆ")]
+        [Tooltip("å¼± ãƒ€ãƒ¡ãƒ¼ã‚¸")] public float weakDamage;
+        [Tooltip("å¼±ãƒ’ãƒƒãƒˆã®é–¾å€¤ (ä»¥ä¸‹)")] public float weakHitThreshold;
+        [Tooltip("å¼±ãƒ’ãƒƒãƒˆã®éŸ³")] public AudioClip weakHitSound;
 
-    [Header("EŠî–{ƒqƒbƒg")]   
-        [Tooltip("Šî–{ ƒ_ƒ[ƒW")] public float baseDamage;
-        [Tooltip("Šî–{ƒqƒbƒg‚Ì‰¹")] public AudioClip baseHitSound;
+    [Header("ãƒ»åŸºæœ¬ãƒ’ãƒƒãƒˆ")]   
+        [Tooltip("åŸºæœ¬ ãƒ€ãƒ¡ãƒ¼ã‚¸")] public float baseDamage;
+        [Tooltip("åŸºæœ¬ãƒ’ãƒƒãƒˆã®éŸ³")] public AudioClip baseHitSound;
 
 
     [FormerlySerializedAs("CriticalDamage")]
-    [Header("E‹­ƒqƒbƒg")]
-        [Tooltip("ƒNƒŠƒeƒBƒJƒ‹ ƒ_ƒ[ƒW")] public float criticalDamage;
-        [Tooltip("‹­ƒqƒbƒg‚Ìè‡’l (ˆÈã)")] public float criticalHitThreshold;
-        [Tooltip("‹­ƒqƒbƒg‚Ì‰¹")] public AudioClip criticalHitSound;  
+    [Header("ãƒ»å¼·ãƒ’ãƒƒãƒˆ")]
+        [Tooltip("ã‚¯ãƒªãƒ†ã‚£ã‚«ãƒ« ãƒ€ãƒ¡ãƒ¼ã‚¸")] public float criticalDamage;
+        [Tooltip("å¼·ãƒ’ãƒƒãƒˆã®é–¾å€¤ (ä»¥ä¸Š)")] public float criticalHitThreshold;
+        [Tooltip("å¼·ãƒ’ãƒƒãƒˆã®éŸ³")] public AudioClip criticalHitSound;  
 
-    [Header("Eƒ_ƒ[ƒW0")]
-        [Tooltip("ƒ_ƒ[ƒW0‚Ìè‡’l (ˆÈ‰º)")] public float noDamageThreshold;
-        [Tooltip("ƒ_ƒ[ƒW0‚Ì‰¹")] public AudioClip noDamageSound;
+    [Header("ãƒ»ãƒ€ãƒ¡ãƒ¼ã‚¸0")]
+        [Tooltip("ãƒ€ãƒ¡ãƒ¼ã‚¸0ã®é–¾å€¤ (ä»¥ä¸‹)")] public float noDamageThreshold;
+        [Tooltip("ãƒ€ãƒ¡ãƒ¼ã‚¸0ã®éŸ³")] public AudioClip noDamageSound;
 
     [Header("=== State ===")]
-    [Tooltip("Scrap‚Ìó‘Ô")] public ScrapState scrapState = ScrapState.Usually;
+    [Tooltip("Scrapã®çŠ¶æ…‹")] public ScrapState scrapState = ScrapState.Usually;
     private ScrapState lastState = ScrapState.Usually;
 
-    [Tooltip("‚Ü‚Æ‚Ü‚Á‚½ó‘Ô‚Ì1—v‘f‚©")] public bool isMerged;
+    [Tooltip("ã¾ã¨ã¾ã£ãŸçŠ¶æ…‹ã®1è¦ç´ ã‹")] public bool isMerged;
     private bool isMergedLast;
 
     private void OnCollisionEnter(Collision collision)
@@ -90,24 +90,25 @@ public class BaseScrap : MonoBehaviour
     }
     private void StateUsuallyInit()
     {
-        // ’Êí‚É–ß‚é‚Ìˆ—
+        // é€šå¸¸ã«æˆ»ã‚‹æ™‚ã®å‡¦ç†
         if (isMerged)
         {
-            // ‚ ‚è‚¦‚È‚¢
+            myRb.linearDamping = damp;
+            gameObject.layer = 0;
         }
         else
         {
-            // Scrap‚Ç‚¤‚µÚG‚·‚é‚æ‚¤‚ÉB‹ó’†‚Å‚Ì–€Cƒ[ƒ‚àŒ³‚É–ß‚·B
+            // Scrapã©ã†ã—æ¥è§¦ã™ã‚‹ã‚ˆã†ã«ã€‚ç©ºä¸­ã§ã®æ‘©æ“¦ã‚¼ãƒ­ã‚‚å…ƒã«æˆ»ã™ã€‚
             myRb.linearDamping = damp;
             gameObject.layer = 0;
         }
     }
     private void StateTetheredInit()
     {
-        // ƒ[ƒv‚É‚Â‚È‚ª‚ê‚½uŠÔ‚Ìˆ—
+        // ãƒ­ãƒ¼ãƒ—ã«ã¤ãªãŒã‚ŒãŸç¬é–“ã®å‡¦ç†
         if (isMerged)
         {
-            // ‚ ‚è‚¦‚È‚¢
+            // ã‚ã‚Šãˆãªã„
         }
         else
         {
@@ -116,7 +117,7 @@ public class BaseScrap : MonoBehaviour
     }
     private void SteteLiftedInit()
     {
-        // ‚¿ã‚°‚ç‚ê‚½irope“à‚Å‚Ìindex‚ª0juŠÔ‚Ìˆ—
+        // æŒã¡ä¸Šã’ã‚‰ã‚ŒãŸï¼ˆropeå†…ã§ã®indexãŒ0ï¼‰ç¬é–“ã®å‡¦ç†
         if (isMerged)
         {
 
@@ -128,7 +129,7 @@ public class BaseScrap : MonoBehaviour
     }
     private void StateInFlightInit()
     {
-        // “Š‚°‚ç‚ê‚½uŠÔ‚Ìˆ—
+        // æŠ•ã’ã‚‰ã‚ŒãŸç¬é–“ã®å‡¦ç†
         if (isMerged)
         {
             myRb.linearDamping = 0;
