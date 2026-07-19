@@ -99,17 +99,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BaseScrap
   myRb: {fileID: 7850867930361259623}
   damp: 2
-  weakDamage: 0
+  mass: 1
+  weakDamage: 3
   weakHitThreshold: 0
   weakHitSound: {fileID: 0}
-  baseDamage: 0
+  baseDamage: 5
   baseHitSound: {fileID: 0}
-  CriticalDamage: 0
+  criticalDamage: 10
   criticalHitThreshold: 0
   criticalHitSound: {fileID: 0}
-  noDamageThreshold: 0
   noDamageSound: {fileID: 0}
+  noDamageHitThreshold: 3
   scrapState: 2
+  isMerged: 0
 --- !u!1001 &7229045055600979543
 PrefabInstance:
   m_ObjectHideFlags: 0

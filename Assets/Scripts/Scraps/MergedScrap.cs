@@ -18,7 +18,9 @@ public class MergedScrap : MonoBehaviour
             childRb.isKinematic = false;
             childRb.AddForce(new Vector3(Random.Range(-5, 5), Random.Range(3, 10), Random.Range(-5, 5)), ForceMode.VelocityChange);
             System.Array.ForEach(child.GetComponents<Collider>(), c => c.enabled = true);
-            child.GetComponent<BaseScrap>().scrapState = BaseScrap.ScrapState.InFlight;
+            BaseScrap childScrap = child.GetComponent<BaseScrap>();
+            childScrap.scrapState = BaseScrap.ScrapState.InFlight;
+            childScrap.isMerged = false;
         }
 
         Destroy(gameObject);
@@ -26,7 +28,7 @@ public class MergedScrap : MonoBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
-        if ((collision.impulse.magnitude / Time.fixedDeltaTime) > 150)
+        if ((collision.relativeVelocity.magnitude) > 5)
         {
             Pearentbrake();
         }

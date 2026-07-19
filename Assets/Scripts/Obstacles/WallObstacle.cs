@@ -1,33 +1,30 @@
 using UnityEngine;
 
-public class WallObstacle : MonoBehaviour
+public class WallObstacle : MonoBehaviour, IDamageable
 {
     [SerializeField] private BoxCollider thisCollider;
-    [SerializeField] private float threshold;
-    private void OnCollisionEnter(Collision collision)
+    public float MaxDurability = 10;
+    public float CurrentDurability = 10;
+
+
+    public void TakeDamage(float damageAmount)
     {
-        Debug.Log($"{collision}：{collision.impulse.magnitude / Time.fixedDeltaTime}");
-        //if ((collision.impulse.magnitude / Time.fixedDeltaTime) > 150)
-        //{
-        //    MergedScrap mergedScrap = collision.gameObject.GetComponent<MergedScrap>();
-        //    if (mergedScrap != null)
-        //    {
-        //        mergedScrap.Pearentbrake();
-        //    }
-        //}
-        if ((collision.impulse.magnitude / Time.fixedDeltaTime) <= threshold)
+        CurrentDurability -= damageAmount;
+
+        if (CurrentDurability <= 0)
         {
-            return;
-        }
-        thisCollider.enabled = false;
-        foreach (Transform child in (transform.GetChild(0).transform))
-        {
-            Rigidbody childRb = (child.GetComponent<Rigidbody>());
-            if (childRb != null)
+            // 破壊処理
+            thisCollider.enabled = false;
+            foreach (Transform child in (transform.GetChild(0).transform))
             {
-                childRb.isKinematic = false;
-                childRb.AddForce(new Vector3(Random.Range(-3, 3), Random.Range(-3, 3), Random.Range(-3, 3)), ForceMode.Impulse);
-                Destroy(gameObject, 3f);
+                Rigidbody childRb = (child.GetComponent<Rigidbody>());
+                if (childRb != null)
+                {
+                    childRb.isKinematic = false;
+                    childRb.AddForce(new Vector3(Random.Range(-3, 3), Random.Range(-3, 3), Random.Range(-3, 3)),
+                        ForceMode.Impulse);
+                    Destroy(gameObject, 3f);
+                }
             }
         }
     }

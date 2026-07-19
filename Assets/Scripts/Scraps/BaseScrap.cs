@@ -26,7 +26,7 @@ public class BaseScrap : MonoBehaviour
 
     [Header("・弱ヒット")]
         [Tooltip("弱 ダメージ")] public float weakDamage;
-        [Tooltip("弱ヒットの閾値 (以下)")] public float weakHitThreshold;
+        [HideInInspector][Tooltip("弱ヒットの閾値 (以下)")] public float weakHitThreshold = 5;
         [Tooltip("弱ヒットの音")] public AudioClip weakHitSound;
 
     [Header("・基本ヒット")]   
@@ -37,35 +37,45 @@ public class BaseScrap : MonoBehaviour
     [FormerlySerializedAs("CriticalDamage")]
     [Header("・強ヒット")]
         [Tooltip("クリティカル ダメージ")] public float criticalDamage;
-        [Tooltip("強ヒットの閾値 (以上)")] public float criticalHitThreshold;
+        [HideInInspector][Tooltip("強ヒットの閾値 (以上)")] public float criticalHitThreshold = 8;
         [Tooltip("強ヒットの音")] public AudioClip criticalHitSound;  
 
     [Header("・ダメージ0")]
-        [Tooltip("ダメージ0の閾値 (以下)")] public float noDamageThreshold;
         [Tooltip("ダメージ0の音")] public AudioClip noDamageSound;
+    [HideInInspector][Tooltip("Zeroヒットの閾値 (以下)")] public float noDamageHitThreshold = 3;
+
 
     [Header("=== State ===")]
     [Tooltip("Scrapの状態")] public ScrapState scrapState = ScrapState.Usually;
-    private ScrapState lastState = ScrapState.Usually;
+    private ScrapState _lastState = ScrapState.Usually;
 
     [Tooltip("まとまった状態の1要素か")] public bool isMerged;
-    private bool isMergedLast;
+    private bool _isMergedLast;
 
     private void OnCollisionEnter(Collision collision)
     {
+
         if (scrapState == ScrapState.InFlight)
         {
             scrapState = ScrapState.Usually;
         }
+
+        if (collision.gameObject.TryGetComponent<IDamageable>(out IDamageable damageable))
+        {
+            damageable.TakeDamage(DeterminingDamage(collision));
+        }
+
+
+
     }
     private void Update()
     {
-        if(isMergedLast != isMerged)
+        if(_isMergedLast != isMerged)
         {
             MergeInit();
-            isMergedLast = isMerged;
+            _isMergedLast = isMerged;
         }
-        if (lastState != scrapState)
+        if (_lastState != scrapState)
         {
             switch (scrapState)
             {
@@ -85,7 +95,7 @@ public class BaseScrap : MonoBehaviour
                     StateInFlightInit();    
                     break;
             }
-            lastState = scrapState;
+            _lastState = scrapState;
         }
     }
     private void StateUsuallyInit()
@@ -156,6 +166,33 @@ public class BaseScrap : MonoBehaviour
         }
 
     }
+
+    private float DeterminingDamage(Collision col)
+    {
+        float damage = 0f;
+        float relativeSpeed = col.relativeVelocity.magnitude;
+
+        if ( relativeSpeed < noDamageHitThreshold)
+        {
+            // ダメージなし
+        }else if (relativeSpeed >= criticalHitThreshold)
+        {
+            // 最大ダメージ
+            damage += criticalDamage;
+        }else if (relativeSpeed <= weakHitThreshold)
+        {
+            // 弱ダメージ
+            damage += weakDamage;
+        }
+        else
+        {
+            // 通常ダメージ
+            damage += baseDamage;
+        }
+        return  damage;
+    }
 }
+
+
 
 
