@@ -63,6 +63,13 @@ public class BaseScrap : MonoBehaviour
         if (collision.gameObject.TryGetComponent<IDamageable>(out IDamageable damageable))
         {
             damageable.TakeDamage(DeterminingDamage(collision));
+            //
+            
+            // マージ解除
+            if (TryGetComponent<MergedScrap>(out MergedScrap mergedScrap))
+            {
+                mergedScrap.Pearentbrake();
+            }
         }
 
 
@@ -175,19 +182,24 @@ public class BaseScrap : MonoBehaviour
         if ( relativeSpeed < noDamageHitThreshold)
         {
             // ダメージなし
-        }else if (relativeSpeed >= criticalHitThreshold)
+        }else
         {
-            // 最大ダメージ
-            damage += criticalDamage;
-        }else if (relativeSpeed <= weakHitThreshold)
-        {
-            // 弱ダメージ
-            damage += weakDamage;
-        }
-        else
-        {
-            // 通常ダメージ
-            damage += baseDamage;
+            
+            if (relativeSpeed >= criticalHitThreshold)
+            {
+                // 最大ダメージ
+                damage += criticalDamage;
+            }
+            else if (relativeSpeed <= weakHitThreshold)
+            {
+                // 弱ダメージ
+                damage += weakDamage;
+            }
+            else
+            {
+                // 通常ダメージ
+                damage += baseDamage;
+            }
         }
         return  damage;
     }
