@@ -107,6 +107,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d55fa682255a3a249bb8f4c0e9a848e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BaseScrap
-  isTethered: 0
-  damp: 2
   myRb: {fileID: 9025851628090738508}
+  damp: 2
+  mass: 1
+  weakDamage: 0
+  weakHitThreshold: 5
+  weakHitSound: {fileID: 0}
+  weakHitParticle: {fileID: 381705452333847227, guid: db815f8702fc8044e9c68273b4518eb6, type: 3}
+  baseDamage: 0
+  baseHitSound: {fileID: 0}
+  baseHitParticle: {fileID: 381705452333847227, guid: db815f8702fc8044e9c68273b4518eb6, type: 3}
+  criticalDamage: 0
+  criticalHitThreshold: 8
+  criticalHitSound: {fileID: 0}
+  criticalHitParticle: {fileID: 381705452333847227, guid: db815f8702fc8044e9c68273b4518eb6, type: 3}
+  noDamageSound: {fileID: 0}
+  noDamageHitThreshold: 3
+  noDamageHitParticle: {fileID: 381705452333847227, guid: db815f8702fc8044e9c68273b4518eb6, type: 3}
+  scrapState: 3
+  isMerged: 0

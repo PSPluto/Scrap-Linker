@@ -28,10 +28,12 @@ public class BaseScrap : MonoBehaviour
         [Tooltip("弱 ダメージ")] public float weakDamage;
         [HideInInspector][Tooltip("弱ヒットの閾値 (以下)")] public float weakHitThreshold = 5;
         [Tooltip("弱ヒットの音")] public AudioClip weakHitSound;
+        [Tooltip("弱ヒットのパーティクル")] public GameObject weakHitParticle;
 
     [Header("・基本ヒット")]   
         [Tooltip("基本 ダメージ")] public float baseDamage;
         [Tooltip("基本ヒットの音")] public AudioClip baseHitSound;
+        [Tooltip("基本ヒットのパーティクル")] public GameObject baseHitParticle;
 
 
     [FormerlySerializedAs("CriticalDamage")]
@@ -39,10 +41,12 @@ public class BaseScrap : MonoBehaviour
         [Tooltip("クリティカル ダメージ")] public float criticalDamage;
         [HideInInspector][Tooltip("強ヒットの閾値 (以上)")] public float criticalHitThreshold = 8;
         [Tooltip("強ヒットの音")] public AudioClip criticalHitSound;  
+        [Tooltip("強ヒットのパーティクル")] public  GameObject criticalHitParticle;
 
     [Header("・ダメージ0")]
         [Tooltip("ダメージ0の音")] public AudioClip noDamageSound;
     [HideInInspector][Tooltip("Zeroヒットの閾値 (以下)")] public float noDamageHitThreshold = 3;
+        [Tooltip("ダメージなしのパーティクル")] public GameObject noDamageHitParticle;
 
 
     [Header("=== State ===")]
@@ -59,11 +63,32 @@ public class BaseScrap : MonoBehaviour
         {
             scrapState = ScrapState.Usually;
         }
+        int resultDamageLevel = DeterminingDamageLevel(collision);
+        GameObject hitParticlePrefab = noDamageHitParticle;
+        switch (resultDamageLevel)
+        {
+            case 0:
+                break;
+            case 1:
+                hitParticlePrefab = weakHitParticle;
+                break;
+            case 2:
+                hitParticlePrefab = baseHitParticle;
+                break;
+            case 3:
+                hitParticlePrefab = criticalHitParticle;
+                break;
+        }
+        GameObject hitParticleObj = Instantiate(hitParticlePrefab, collision.GetContact(0).point, Quaternion.FromToRotation(Vector3.forward ,collision.GetContact(0).normal));
 
+        // ダメージを受けるモノに当たった場合
         if (collision.gameObject.TryGetComponent<IDamageable>(out IDamageable damageable))
         {
-            damageable.TakeDamage(DeterminingDamage(collision));
-            //
+            // ダメージ
+            damageable.TakeDamage(ReturnLevelDamage(resultDamageLevel));
+            
+            //HITパーティクル
+            
             
             // マージ解除
             if (TryGetComponent<MergedScrap>(out MergedScrap mergedScrap))
@@ -71,7 +96,6 @@ public class BaseScrap : MonoBehaviour
                 mergedScrap.Pearentbrake();
             }
         }
-
 
 
     }
@@ -174,9 +198,9 @@ public class BaseScrap : MonoBehaviour
 
     }
 
-    private float DeterminingDamage(Collision col)
+    private int DeterminingDamageLevel(Collision col)
     {
-        float damage = 0f;
+        int damageLevel = 0;
         float relativeSpeed = col.relativeVelocity.magnitude;
 
         if ( relativeSpeed < noDamageHitThreshold)
@@ -184,24 +208,44 @@ public class BaseScrap : MonoBehaviour
             // ダメージなし
         }else
         {
-            
+            // ダメージアリ
             if (relativeSpeed >= criticalHitThreshold)
             {
                 // 最大ダメージ
-                damage += criticalDamage;
+                damageLevel += 3;
             }
             else if (relativeSpeed <= weakHitThreshold)
             {
                 // 弱ダメージ
-                damage += weakDamage;
+                damageLevel += 1;
             }
             else
             {
                 // 通常ダメージ
-                damage += baseDamage;
+                damageLevel += 2;
             }
         }
-        return  damage;
+        return  damageLevel;
+    }
+
+    public float ReturnLevelDamage(int damageLevel)
+    {
+        float resultDamage = 0;
+        switch (damageLevel)
+        {
+            case 0:
+                break;
+            case 1:
+                resultDamage = weakDamage;
+                break;
+            case 2:
+                resultDamage = baseDamage;
+                break;
+            case 3:
+                resultDamage = criticalDamage;
+                break;
+        }
+        return resultDamage;
     }
 }
 
