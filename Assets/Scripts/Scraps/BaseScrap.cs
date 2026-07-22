@@ -68,18 +68,26 @@ public class BaseScrap : MonoBehaviour
         switch (resultDamageLevel)
         {
             case 0:
+                // 前でやってるので問題ない
+                AudioManager.Instance.PlayAudioOneShot(noDamageSound, transform.position);
                 break;
+            
             case 1:
                 hitParticlePrefab = weakHitParticle;
+                AudioManager.Instance.PlayAudioOneShot(weakHitSound, transform.position);
                 break;
+            
             case 2:
                 hitParticlePrefab = baseHitParticle;
+                AudioManager.Instance.PlayAudioOneShot(baseHitSound, transform.position);
                 break;
+            
             case 3:
                 hitParticlePrefab = criticalHitParticle;
+                AudioManager.Instance.PlayAudioOneShot(criticalHitSound, transform.position);
                 break;
         }
-        GameObject hitParticleObj = Instantiate(hitParticlePrefab, collision.GetContact(0).point, Quaternion.FromToRotation(Vector3.forward ,collision.GetContact(0).normal));
+        GameObject hitParticleObj = Instantiate(hitParticlePrefab, collision.GetContact(0).point, Quaternion.FromToRotation(Vector3.forward ,collision.GetContact(0).normal*-1));
 
         // ダメージを受けるモノに当たった場合
         if (collision.gameObject.TryGetComponent<IDamageable>(out IDamageable damageable))
