@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 891919330862170508}
   - component: {fileID: 7181908893130855382}
   m_Layer: 0
-  m_Name: NomalHitParitcle 1
+  m_Name: NomalHitParitcle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03d9992b20ef38340894478b668c9ee3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ParticleRemove
-  time: 2
+  time: 1
 --- !u!198 &891919330862170508
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -130,7 +130,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 5
+      scalar: 0.5
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -994,7 +994,7 @@ ParticleSystem:
       countCurve:
         serializedVersion: 2
         minMaxState: 0
-        scalar: 10
+        scalar: 6
         minScalar: 30
         maxCurve:
           serializedVersion: 2
@@ -3693,7 +3693,7 @@ ParticleSystem:
   CollisionModule:
     enabled: 1
     serializedVersion: 4
-    type: 0
+    type: 1
     collisionMode: 0
     colliderForce: 0
     multiplyColliderForceByParticleSize: 0
@@ -4012,7 +4012,7 @@ ParticleSystem:
     lifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.05
+      scalar: 0.1
       minScalar: 1
       maxCurve:
         serializedVersion: 2

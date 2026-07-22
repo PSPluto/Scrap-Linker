@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public static class GameManager
@@ -11,13 +12,12 @@ public static class GameManager
 
     public static GameState gameState =  GameState.Title;
 
-    public static GameStateChangeLog UpdateGameState(GameState nextState)
+    public static GameStateChangeLog ChangeGameState(GameState nextState)
     {
         GameStateChangeLog returnState = new GameStateChangeLog { beforeState = gameState, afterState = nextState};
         gameState = nextState;
         return returnState;
     }
-    
 }
 
 public struct GameStateChangeLog
