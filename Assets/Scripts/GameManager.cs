@@ -8,6 +8,7 @@ public static class GameManager
         Title,
         InGame,
         GameOver,
+        Clear,
     };
 
     public static GameState gameState =  GameState.Title;
