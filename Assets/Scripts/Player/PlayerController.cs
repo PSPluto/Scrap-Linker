@@ -1,10 +1,12 @@
 ﻿using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 using static UnityEngine.Rendering.DebugUI;
 using RangeAttribute = UnityEngine.RangeAttribute;
 
 public class PlayerController : MonoBehaviour
 {
+    private static readonly int Speed = Animator.StringToHash("Speed");
     public Rigidbody playerRB;
     public float maxMoveSpeed = 10f;
     public Animator playerAnimator;
@@ -20,32 +22,32 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private Vector3 currentVelocity;
 
-    [Header("HP")]
-    public int maxHP = 10;
-    private int currentHP;
+    [FormerlySerializedAs("maxHP")] [Header("HP")]
+    public int maxHp = 10;
+    private int _currentHp;
 
     // WASD入力値
-    private Vector2 value = Vector2.zero;
+    private Vector2 _value = Vector2.zero;
 
     private void Start()
     {
-        currentHP = maxHP;
+        _currentHp = maxHp;
     }
 
     private void Update()
     {
-        value = Vector2.zero;
+        _value = Vector2.zero;
         if (Keyboard.current != null)
         {
-            if (Keyboard.current.wKey.isPressed) value.y = 1f;
-            if (Keyboard.current.sKey.isPressed) value.y = -1f;
-            if (Keyboard.current.aKey.isPressed) value.x = -1f;
-            if (Keyboard.current.dKey.isPressed) value.x = 1f;
+            if (Keyboard.current.wKey.isPressed) _value.y = 1f;
+            if (Keyboard.current.sKey.isPressed) _value.y = -1f;
+            if (Keyboard.current.aKey.isPressed) _value.x = -1f;
+            if (Keyboard.current.dKey.isPressed) _value.x = 1f;
         }
 
-        if (value.magnitude > 1f)
+        if (_value.magnitude > 1f)
         {
-            value.Normalize();
+            _value.Normalize();
         }
     }
     void FixedUpdate()
@@ -57,11 +59,11 @@ public class PlayerController : MonoBehaviour
     {
         currentVelocity = Vector3.zero;
         // 目標速度
-        Vector3 targetVelocity = new Vector3(value.x * maxMoveSpeed, 0f, value.y * maxMoveSpeed);
+        Vector3 targetVelocity = new Vector3(_value.x * maxMoveSpeed, 0f, _value.y * maxMoveSpeed);
 
         // 現在の速度を取得（y無視）
         currentVelocity = new Vector3(playerRB.linearVelocity.x, 0f, playerRB.linearVelocity.z);
-        playerAnimator.SetFloat("Speed", currentVelocity.magnitude);
+        playerAnimator.SetFloat(Speed, currentVelocity.magnitude);
 
 
         // 最高速度まで速度加算
@@ -79,7 +81,7 @@ public class PlayerController : MonoBehaviour
         playerRB.AddForce(velocityChange, ForceMode.VelocityChange);
 
         // 移動方向へ向く
-        Vector3 moveDir = new Vector3(value.x, 0f, value.y);
+        Vector3 moveDir = new Vector3(_value.x, 0f, _value.y);
         if (moveDir.sqrMagnitude > 0.0001f)
         {
             Quaternion targetRot = Quaternion.LookRotation(moveDir, Vector3.up);
@@ -99,9 +101,9 @@ public class PlayerController : MonoBehaviour
         {
             // ダメージ
             damageable.TakeDamage(1f);
-            currentHP -= 1;
-            Debug.Log($"Player HP: {currentHP}/{maxHP}");
-            if (currentHP <= 0)
+            _currentHp -= 1;
+            Debug.Log($"Player HP: {_currentHp}/{maxHp}");
+            if (_currentHp <= 0)
             {
                 Debug.Log("Player is dead!");
                 // ゲームオーバー処理などをここに追加
