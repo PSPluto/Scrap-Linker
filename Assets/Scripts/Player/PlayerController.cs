@@ -18,11 +18,19 @@ public class PlayerController : MonoBehaviour
     [Header("停止判定")]
     [SerializeField] private float stopThreshold = 0.05f;
 
-    [SerializeField]private Vector3 currentVelocity;
+    [SerializeField] private Vector3 currentVelocity;
 
+    [Header("HP")]
+    public int maxHP = 10;
+    private int currentHP;
 
     // WASD入力値
     private Vector2 value = Vector2.zero;
+
+    private void Start()
+    {
+        currentHP = maxHP;
+    }
 
     private void Update()
     {
@@ -82,5 +90,22 @@ public class PlayerController : MonoBehaviour
 
 
         //playerRB.rotation = Quaternion.Lerp(playerRB.rotation, Quaternion.Euler(0, 0, 0),0.2f);
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        // ダメージを受けるモノに当たった場合
+        if (collision.gameObject.TryGetComponent<IDamageable>(out IDamageable damageable))
+        {
+            // ダメージ
+            damageable.TakeDamage(1f);
+            currentHP -= 1;
+            Debug.Log($"Player HP: {currentHP}/{maxHP}");
+            if (currentHP <= 0)
+            {
+                Debug.Log("Player is dead!");
+                // ゲームオーバー処理などをここに追加
+            }
+        }
     }
 }
