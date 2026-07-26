@@ -97,6 +97,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d55fa682255a3a249bb8f4c0e9a848e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BaseScrap
+  ignoreTag: Player
   myRb: {fileID: 7850867930361259623}
   damp: 2
   mass: 1

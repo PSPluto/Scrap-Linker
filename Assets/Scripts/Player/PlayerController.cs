@@ -4,10 +4,10 @@ using UnityEngine.Serialization;
 using static UnityEngine.Rendering.DebugUI;
 using RangeAttribute = UnityEngine.RangeAttribute;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour , IDamageable
 {
     private static readonly int Speed = Animator.StringToHash("Speed");
-    public Rigidbody playerRB;
+    [FormerlySerializedAs("playerRB")] public Rigidbody playerRb;
     public float maxMoveSpeed = 10f;
     public Animator playerAnimator;
 
@@ -62,7 +62,7 @@ public class PlayerController : MonoBehaviour
         Vector3 targetVelocity = new Vector3(_value.x * maxMoveSpeed, 0f, _value.y * maxMoveSpeed);
 
         // 現在の速度を取得（y無視）
-        currentVelocity = new Vector3(playerRB.linearVelocity.x, 0f, playerRB.linearVelocity.z);
+        currentVelocity = new Vector3(playerRb.linearVelocity.x, 0f, playerRb.linearVelocity.z);
         playerAnimator.SetFloat(Speed, currentVelocity.magnitude);
 
 
@@ -78,15 +78,15 @@ public class PlayerController : MonoBehaviour
         Vector3 velocityChange = nextVelocity - currentVelocity;
 
         // 適用
-        playerRB.AddForce(velocityChange, ForceMode.VelocityChange);
+        playerRb.AddForce(velocityChange, ForceMode.VelocityChange);
 
         // 移動方向へ向く
         Vector3 moveDir = new Vector3(_value.x, 0f, _value.y);
         if (moveDir.sqrMagnitude > 0.0001f)
         {
             Quaternion targetRot = Quaternion.LookRotation(moveDir, Vector3.up);
-            playerRB.MoveRotation(
-                Quaternion.RotateTowards(playerRB.rotation, targetRot, rotationSpeed * Time.fixedDeltaTime)
+            playerRb.MoveRotation(
+                Quaternion.RotateTowards(playerRb.rotation, targetRot, rotationSpeed * Time.fixedDeltaTime)
             );
         }
 
@@ -94,20 +94,14 @@ public class PlayerController : MonoBehaviour
         //playerRB.rotation = Quaternion.Lerp(playerRB.rotation, Quaternion.Euler(0, 0, 0),0.2f);
     }
 
-    private void OnCollisionEnter(Collision collision)
+    public void TakeDamage(float damageAmount)
     {
-        // ダメージを受けるモノに当たった場合
-        if (collision.gameObject.TryGetComponent<IDamageable>(out IDamageable damageable))
+        _currentHp -= 1;
+        Debug.Log($"Player HP: {_currentHp}/{maxHp}");
+        if (_currentHp <= 0)
         {
-            // ダメージ
-            damageable.TakeDamage(1f);
-            _currentHp -= 1;
-            Debug.Log($"Player HP: {_currentHp}/{maxHp}");
-            if (_currentHp <= 0)
-            {
-                Debug.Log("Player is dead!");
-                // ゲームオーバー処理などをここに追加
-            }
+            Debug.Log("Player is dead!");
+            // ゲームオーバー処理などをここに追加
         }
     }
 }

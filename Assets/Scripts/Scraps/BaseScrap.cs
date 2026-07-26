@@ -5,6 +5,7 @@ using UnityEngine.Serialization;
 public class BaseScrap : MonoBehaviour
 {
 
+    public string ignoreTag;
     public enum ScrapState
     {
         // ロープに従っている状態
@@ -92,8 +93,11 @@ public class BaseScrap : MonoBehaviour
         // ダメージを受けるモノに当たった場合
         if (collision.gameObject.TryGetComponent<IDamageable>(out IDamageable damageable))
         {
-            // ダメージ
-            damageable.TakeDamage(ReturnLevelDamage(resultDamageLevel));
+            if (!collision.gameObject.CompareTag(ignoreTag))
+            {
+                // ダメージ
+                damageable.TakeDamage(ReturnLevelDamage(resultDamageLevel));
+            }
             
             //HITパーティクル
             
