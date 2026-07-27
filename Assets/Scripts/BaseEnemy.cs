@@ -6,6 +6,7 @@ public class BaseEnemy : MonoBehaviour , IDamageable
     [SerializeField]private float maxHp = 40;
     private float currentHp;
     [SerializeField]private float attackDamage = 20f;
+    bool exitQueue = false;
 
     [SerializeField]private Animator animator;
     // Update is called once per frame
@@ -41,10 +42,23 @@ public class BaseEnemy : MonoBehaviour , IDamageable
 
     }
 
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            bool exitQueue = true;
+        }
+    }
+
     public void EndAttack()
     {
+        if (!exitQueue)
+        {
+            return;
+        }
         Debug.Log("攻撃終わり");
         animator.SetInteger(AiState, 0);
+        exitQueue = false;
 
     }
 

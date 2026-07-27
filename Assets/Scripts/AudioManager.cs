@@ -16,7 +16,7 @@ public class AudioManager : MonoBehaviour
         
         foreach (AudioRequestElement frameAudioRequestElement in _frameAudioRequestElements)
         {
-            audioSource.pitch = Random.Range(0.8f, 1.2f); 
+            audioSource.pitch = Random.Range(0.9f, 1f); 
             PlaySound(frameAudioRequestElement.audioClip, frameAudioRequestElement.position);
         }
         _frameAudioRequestElements.Clear();
