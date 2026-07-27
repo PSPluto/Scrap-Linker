@@ -23,8 +23,8 @@ public class PlayerController : MonoBehaviour , IDamageable
     [SerializeField] private Vector3 currentVelocity;
 
     [FormerlySerializedAs("maxHP")] [Header("HP")]
-    public int maxHp = 10;
-    private int _currentHp;
+    public float maxHp = 10;
+    private float _currentHp;
 
     // WASD入力値
     private Vector2 _value = Vector2.zero;
@@ -96,7 +96,7 @@ public class PlayerController : MonoBehaviour , IDamageable
 
     public void TakeDamage(float damageAmount)
     {
-        _currentHp -= 1;
+        _currentHp -= damageAmount;
         Debug.Log($"Player HP: {_currentHp}/{maxHp}");
         if (_currentHp <= 0)
         {

@@ -27,7 +27,7 @@ public class BaseScrap : MonoBehaviour
 
     [Header("・弱ヒット")]
         [Tooltip("弱 ダメージ")] public float weakDamage;
-        [HideInInspector][Tooltip("弱ヒットの閾値 (以下)")] public float weakHitThreshold = 5;
+        [Tooltip("弱ヒットの閾値 (以下)")] public float weakHitThreshold = 10;
         [Tooltip("弱ヒットの音")] public AudioClip weakHitSound;
         [Tooltip("弱ヒットのパーティクル")] public GameObject weakHitParticle;
 
@@ -40,13 +40,13 @@ public class BaseScrap : MonoBehaviour
     [FormerlySerializedAs("CriticalDamage")]
     [Header("・強ヒット")]
         [Tooltip("クリティカル ダメージ")] public float criticalDamage;
-        [HideInInspector][Tooltip("強ヒットの閾値 (以上)")] public float criticalHitThreshold = 8;
+        [Tooltip("強ヒットの閾値 (以上)")] public float criticalHitThreshold = 25000;
         [Tooltip("強ヒットの音")] public AudioClip criticalHitSound;  
         [Tooltip("強ヒットのパーティクル")] public  GameObject criticalHitParticle;
 
     [Header("・ダメージ0")]
         [Tooltip("ダメージ0の音")] public AudioClip noDamageSound;
-    [HideInInspector][Tooltip("Zeroヒットの閾値 (以下)")] public float noDamageHitThreshold = 3;
+        [Tooltip("Zeroヒットの閾値 (以下)")] public float noDamageHitThreshold = 3;
         [Tooltip("ダメージなしのパーティクル")] public GameObject noDamageHitParticle;
 
 
@@ -59,7 +59,10 @@ public class BaseScrap : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-
+        if (scrapState == ScrapState.Lifted)
+        {
+            return;
+        }
         if (scrapState == ScrapState.InFlight)
         {
             scrapState = ScrapState.Usually;
@@ -214,6 +217,7 @@ public class BaseScrap : MonoBehaviour
     {
         int damageLevel = 0;
         float relativeSpeed = col.relativeVelocity.magnitude;
+        // Debug.Log(relativeSpeed);
 
         if ( relativeSpeed < noDamageHitThreshold)
         {

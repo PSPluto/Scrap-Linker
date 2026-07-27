@@ -102,18 +102,18 @@ MonoBehaviour:
   damp: 2
   mass: 1
   weakDamage: 3
-  weakHitThreshold: 0
+  weakHitThreshold: 4
   weakHitSound: {fileID: 8300000, guid: 5ab0817dabdd9014e9b314827c54b614, type: 3}
   weakHitParticle: {fileID: 381705452333847227, guid: db815f8702fc8044e9c68273b4518eb6, type: 3}
   baseDamage: 5
   baseHitSound: {fileID: 8300000, guid: 7a9784f1b4904924dac208c301b05317, type: 3}
   baseHitParticle: {fileID: 381705452333847227, guid: 20a0bbb06e76bbe44b5d8b2099b618d9, type: 3}
   criticalDamage: 10
-  criticalHitThreshold: 0
+  criticalHitThreshold: 10
   criticalHitSound: {fileID: 8300000, guid: 7104acf766a66594eb38407f15535673, type: 3}
   criticalHitParticle: {fileID: 381705452333847227, guid: d76662dfaec0e2b4c8586f21ed74fb05, type: 3}
   noDamageSound: {fileID: 8300000, guid: 5d8d49e3cf3459443a5a09b34836cebe, type: 3}
-  noDamageHitThreshold: 3
+  noDamageHitThreshold: 1
   noDamageHitParticle: {fileID: 381705452333847227, guid: db815f8702fc8044e9c68273b4518eb6, type: 3}
   scrapState: 2
   isMerged: 0

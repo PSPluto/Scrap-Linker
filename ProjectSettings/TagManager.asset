@@ -7,6 +7,7 @@ TagManager:
   - Scrap
   - Scrap/Parts
   - Scrap/Parts/A
+  - Enemys
   layers:
   - Default
   - TransparentFX
