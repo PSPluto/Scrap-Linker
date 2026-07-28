@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
 using static UnityEngine.Rendering.DebugUI;
@@ -6,6 +7,8 @@ using RangeAttribute = UnityEngine.RangeAttribute;
 
 public class PlayerController : MonoBehaviour , IDamageable
 {
+    public static PlayerController Instance{get; private set;}
+    
     private static readonly int Speed = Animator.StringToHash("Speed");
     [FormerlySerializedAs("playerRB")] public Rigidbody playerRb;
     public float maxMoveSpeed = 10f;
@@ -28,6 +31,11 @@ public class PlayerController : MonoBehaviour , IDamageable
 
     // WASD入力値
     private Vector2 _value = Vector2.zero;
+
+    private void Awake()
+    {
+        PlayerController.Instance = this;
+    }
 
     private void Start()
     {

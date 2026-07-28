@@ -1,3 +1,6 @@
+using System;
+using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class BaseEnemy : MonoBehaviour , IDamageable
@@ -7,6 +10,7 @@ public class BaseEnemy : MonoBehaviour , IDamageable
     private float currentHp;
     [SerializeField]private float attackDamage = 20f;
     bool exitQueue = false;
+    [SerializeField]private Rigidbody myRb; 
 
     [SerializeField]private Animator animator;
     // Update is called once per frame
@@ -15,6 +19,7 @@ public class BaseEnemy : MonoBehaviour , IDamageable
         Idle,
         Attacking,
         Chase,
+        Die,
     }
     public EnemyState state;
 
@@ -35,25 +40,36 @@ public class BaseEnemy : MonoBehaviour , IDamageable
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") && animator.GetInteger(AiState) == 0)
         {
             animator.SetInteger(AiState, 2);
-        }
 
+            Vector3 direction = (PlayerController.Instance.transform.position - transform.position).normalized;
+            direction.y = 0;
+            if (direction != Vector3.zero)
+            {
+                Quaternion targetRotation = Quaternion.LookRotation(direction);
+                myRb.MoveRotation(targetRotation);
+            }
+        }
+        
     }
 
-    private void OnTriggerStay(Collider other)
+    private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            bool exitQueue = true;
+            exitQueue = true;
         }
     }
 
     public void EndAttack()
     {
-        if (!exitQueue)
+        if (exitQueue == false)
         {
+            animator.SetInteger(AiState, 1);
+            StartCoroutine(Rush());
+            exitQueue = false;
             return;
         }
         Debug.Log("攻撃終わり");
@@ -64,7 +80,7 @@ public class BaseEnemy : MonoBehaviour , IDamageable
 
     public void Attack()
     {
-        Collider[] hitColliders = Physics.OverlapSphere(transform.position, 2f);
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, 1.4f);
         foreach (Collider hitCollider in hitColliders)
         {
             if (hitCollider.gameObject == this.gameObject)
@@ -84,6 +100,25 @@ public class BaseEnemy : MonoBehaviour , IDamageable
                 rb.AddForce(knockbackDir * 10f, ForceMode.VelocityChange);
             }
             
+        }
+    }
+
+    IEnumerator Rush()
+    {
+        Debug.Log("コルーチンはじめ");
+        float speed = 0f;
+        int loopCount = 0;
+        while (true)
+        {
+            loopCount++;
+            myRb.linearVelocity = transform.forward * (-1 * (Mathf.Lerp(speed, 5, 0.2f)));
+            if (loopCount == 40)
+            {
+                animator.SetInteger(AiState, 0);
+                Debug.Log("コルーチン終わり");
+                yield break;
+            }
+            yield return new WaitForSeconds(0.05f);   
         }
     }
 }
