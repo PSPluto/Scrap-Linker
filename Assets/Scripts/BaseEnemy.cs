@@ -1,81 +1,62 @@
-using System;
 using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.AI;
 
-public class BaseEnemy : MonoBehaviour , IDamageable
+[RequireComponent(typeof(NavMeshAgent))]
+public class BaseEnemy : MonoBehaviour, IDamageable
 {
     private static readonly int AiState = Animator.StringToHash("AiState");
-    [SerializeField]private float maxHp = 40;
+
+    public enum EnemyState { Idle, Chase, Attack, Die }
+    public EnemyState state = EnemyState.Idle;
+
+    [SerializeField] private float maxHp = 40f;
+    [SerializeField] private float attackDamage = 20f;
+
+    [SerializeField] private float detectionRange = 8f;
+    [SerializeField] private float loseRange = 12f;
+    [SerializeField] private float attackRange = 1.6f;
+
+    [SerializeField] private NavMeshAgent agent;
+    [SerializeField] private Animator animator;
+
     private float currentHp;
-    [SerializeField]private float attackDamage = 20f;
-    bool exitQueue = false;
-    [SerializeField]private Rigidbody myRb; 
+    private Transform player;
 
-    [SerializeField]private Animator animator;
-    // Update is called once per frame
-    public enum EnemyState
-    {
-        Idle,
-        Attacking,
-        Chase,
-        Die,
-    }
-    public EnemyState state;
-
-    void Start()
+    private void Start()
     {
         currentHp = maxHp;
+        if (!agent) agent = GetComponent<NavMeshAgent>();
+        if (PlayerController.Instance) player = PlayerController.Instance.transform;
+        ChangeState(EnemyState.Idle);
     }
 
-    public void TakeDamage(float damageAmount)
+    private void Update()
     {
-        currentHp -= damageAmount;
-        Debug.Log($"-{damageAmount}({currentHp})");
-        if (currentHp <= 0)
+        if (state == EnemyState.Die || !player)
         {
-            Debug.Log($"倒された");
-        }
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Player") && animator.GetInteger(AiState) == 0)
-        {
-            animator.SetInteger(AiState, 2);
-
-            Vector3 direction = (PlayerController.Instance.transform.position - transform.position).normalized;
-            direction.y = 0;
-            if (direction != Vector3.zero)
-            {
-                Quaternion targetRotation = Quaternion.LookRotation(direction);
-                myRb.MoveRotation(targetRotation);
-            }
-        }
-        
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            exitQueue = true;
-        }
-    }
-
-    public void EndAttack()
-    {
-        if (exitQueue == false)
-        {
-            animator.SetInteger(AiState, 1);
-            StartCoroutine(Rush());
-            exitQueue = false;
+            Destroy(gameObject, 1f);
             return;
         }
-        Debug.Log("攻撃終わり");
-        animator.SetInteger(AiState, 0);
-        exitQueue = false;
 
+        float dist = Vector3.Distance(transform.position, player.position);
+
+        switch (state)
+        {
+            case EnemyState.Idle:
+                if (dist <= detectionRange) ChangeState(EnemyState.Chase);
+                break;
+
+            case EnemyState.Chase:
+                if (dist > loseRange) ChangeState(EnemyState.Idle);
+                else if (dist <= attackRange) ChangeState(EnemyState.Attack);
+                else agent.SetDestination(player.position);
+                break;
+
+            case EnemyState.Attack:
+                FaceTarget(player.position);
+                break;
+        }
     }
 
     public void Attack()
@@ -83,42 +64,50 @@ public class BaseEnemy : MonoBehaviour , IDamageable
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, 1.4f);
         foreach (Collider hitCollider in hitColliders)
         {
-            if (hitCollider.gameObject == this.gameObject)
+            if (hitCollider.gameObject == gameObject) continue;
+
+            if (hitCollider.CompareTag("Player") && hitCollider.TryGetComponent<IDamageable>(out var damageable))
             {
-                continue;
+                damageable.TakeDamage(attackDamage);
             }
-            if (hitCollider.CompareTag("Player"))
+
+            if (hitCollider.TryGetComponent<Rigidbody>(out Rigidbody rb))
             {
-                hitCollider.GetComponent<IDamageable>().TakeDamage(attackDamage);
-                
-            }
-            if(hitCollider.TryGetComponent<Rigidbody>(out Rigidbody rb))
-            {
-                Vector3 knockbackDir = hitCollider.transform.position - transform.position;
-                knockbackDir.y = 0.4f; 
-                knockbackDir.Normalize();
+                Vector3 knockbackDir = (hitCollider.transform.position - transform.position).normalized;
+                knockbackDir.y = 0.4f;
                 rb.AddForce(knockbackDir * 10f, ForceMode.VelocityChange);
             }
-            
         }
     }
 
-    IEnumerator Rush()
+    public void EndAttack()
     {
-        Debug.Log("コルーチンはじめ");
-        float speed = 0f;
-        int loopCount = 0;
-        while (true)
-        {
-            loopCount++;
-            myRb.linearVelocity = transform.forward * (-1 * (Mathf.Lerp(speed, 5, 0.2f)));
-            if (loopCount == 40)
-            {
-                animator.SetInteger(AiState, 0);
-                Debug.Log("コルーチン終わり");
-                yield break;
-            }
-            yield return new WaitForSeconds(0.05f);   
-        }
+        if (state == EnemyState.Die || !player) return;
+
+        float dist = Vector3.Distance(transform.position, player.position);
+        ChangeState(dist <= attackRange ? EnemyState.Attack : EnemyState.Chase);
+    }
+
+    public void TakeDamage(float damageAmount)
+    {
+        if (state == EnemyState.Die) return;
+
+        currentHp -= damageAmount;
+        if (currentHp <= 0) ChangeState(EnemyState.Die);
+    }
+
+    private void ChangeState(EnemyState newState)
+    {
+        state = newState;
+        animator.SetInteger(AiState, (int)newState);
+        if (agent) agent.isStopped = (newState != EnemyState.Chase);
+    }
+
+    private void FaceTarget(Vector3 targetPosition)
+    {
+        Vector3 dir = targetPosition - transform.position;
+        dir.y = 0f;
+        if (dir.sqrMagnitude < 0.0001f) return;
+        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(dir), 10f * Time.deltaTime);
     }
 }
