@@ -11,6 +11,11 @@ public class NitroBolt : MonoBehaviour
         {
             damageable.TakeDamage(damage);
         }
+
+        if (collision.gameObject.TryGetComponent<PlayerController>(out PlayerController playerController))
+        {
+            playerController.debuffTime = Mathf.Lerp(playerController.debuffTime, 3f, 0.25f);
+        }
         Destroy(gameObject);
     }
 

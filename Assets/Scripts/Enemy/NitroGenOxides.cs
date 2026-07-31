@@ -37,8 +37,13 @@ public class NitroGenOxides : BaseEnemy
             }
             shotCount--; 
             //発射
-            GameObject boltObj = Instantiate(boltPrefab, transform.position + transform.forward + new Vector3(0,0.75f,0), transform.rotation);
-            boltObj.GetComponent<Rigidbody>().AddForce(transform.forward * boltSpeed , ForceMode.VelocityChange);
+            GameObject boltObj = Instantiate
+            (
+                boltPrefab, 
+                transform.position + transform.forward + new Vector3(0,0.75f,0), 
+                transform.rotation * Quaternion.Euler(0,Random.Range(-30f,30f),0)
+            );
+            boltObj.GetComponent<Rigidbody>().AddForce(boltObj.transform.forward * boltSpeed , ForceMode.VelocityChange);
             yield return new WaitForSeconds(ShotInterval);
         }
     }

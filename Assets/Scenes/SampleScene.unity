@@ -209,6 +209,8 @@ MonoBehaviour:
   stopThreshold: 0.05
   currentVelocity: {x: 0, y: 0, z: 0}
   maxHp: 30
+  deBuffSpeedMultiplier: 0.7
+  debuffTime: 0
 --- !u!54 &46568579
 Rigidbody:
   m_ObjectHideFlags: 0

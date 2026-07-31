@@ -29,6 +29,9 @@ public class PlayerController : MonoBehaviour , IDamageable
     public float maxHp = 10;
     private float _currentHp;
 
+    [Header("移動速度の低下倍率")] public float deBuffSpeedMultiplier = 0.8f;
+    [Header("移動速度の残りデバフ時間")] public float debuffTime = 0f;
+
     // WASD入力値
     private Vector2 _value = Vector2.zero;
 
@@ -67,10 +70,20 @@ public class PlayerController : MonoBehaviour , IDamageable
     {
         currentVelocity = Vector3.zero;
         // 目標速度
-        Vector3 targetVelocity = new Vector3(_value.x * maxMoveSpeed, 0f, _value.y * maxMoveSpeed);
+        Vector3 targetVelocity = new Vector3(_value.x * maxMoveSpeed, 0f, _value.y * maxMoveSpeed) * (1f - (1f - deBuffSpeedMultiplier) * (float)System.Convert.ToInt32(debuffTime > 0f));
 
         // 現在の速度を取得（y無視）
         currentVelocity = new Vector3(playerRb.linearVelocity.x, 0f, playerRb.linearVelocity.z);
+        
+        
+        if (debuffTime > 0f)
+        {
+            debuffTime -= Time.fixedDeltaTime;
+        }
+        if (debuffTime <= 0f)
+        {
+            debuffTime = 0f;
+        }
         playerAnimator.SetFloat(Speed, currentVelocity.magnitude);
 
 
