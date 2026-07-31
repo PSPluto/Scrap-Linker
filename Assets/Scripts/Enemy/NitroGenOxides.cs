@@ -25,6 +25,10 @@ public class NitroGenOxides : BaseEnemy
     {
         while (true)
         {
+            if (state == EnemyState.Die)
+            {
+                yield break;
+            }
             if (shotCount <= 0)
             {
                 shotCoroutine = null;

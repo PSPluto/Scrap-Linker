@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class NitroBolt : MonoBehaviour
@@ -11,5 +12,18 @@ public class NitroBolt : MonoBehaviour
             damageable.TakeDamage(damage);
         }
         Destroy(gameObject);
+    }
+
+    private async void Start()
+    {
+        try
+        {
+            await Task.Delay(2000);
+            GetComponent<Rigidbody>().useGravity = true;
+        }
+        catch (Exception)
+        {
+            return;
+        }
     }
 }
