@@ -13,7 +13,6 @@ public class RespawnPoint : MonoBehaviour
             Debug.Log($"何かが接触しましたが勢いが足りませんでした：{collision.relativeVelocity.magnitude}");
             return;
         }
-
         Vector3 newRespawnPos = (this.transform.forward * 1) + this.transform.position + new Vector3(0,1,0);
         PlayerController.Instance.respawnPos = newRespawnPos;
         Debug.Log($"セーブポイントが{newRespawnPos}");
