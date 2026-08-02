@@ -7,10 +7,12 @@ using RangeAttribute = UnityEngine.RangeAttribute;
 
 public class PlayerController : MonoBehaviour , IDamageable
 {
+    [SerializeField]private Vector3 defaultRespawnPosition;
+    public Vector3 respawnPos = new Vector3(0, 0, 0);
     public static PlayerController Instance{get; private set;}
     
     private static readonly int Speed = Animator.StringToHash("Speed");
-    [FormerlySerializedAs("playerRB")] public Rigidbody playerRb;
+    public Rigidbody playerRb;
     public float maxMoveSpeed = 10f;
     public Animator playerAnimator;
 
@@ -59,6 +61,10 @@ public class PlayerController : MonoBehaviour , IDamageable
         if (_value.magnitude > 1f)
         {
             _value.Normalize();
+        }
+        if (transform.position.y < -5f)
+        {
+            TakeDamage(_currentHp);
         }
     }
     void FixedUpdate()
@@ -121,8 +127,16 @@ public class PlayerController : MonoBehaviour , IDamageable
         Debug.Log($"Player HP: {_currentHp}/{maxHp}");
         if (_currentHp <= 0)
         {
-            Debug.Log("Player is dead!");
-            // ゲームオーバー処理などをここに追加
+            Respawn();
         }
+    }
+
+    public void Respawn()
+    {
+        playerRb.isKinematic = true;
+        this.gameObject.GetComponent<PlayerRopeManager>().dropAllScrap();
+        transform.position = respawnPos;
+        _currentHp = maxHp;
+        playerRb.isKinematic = false;
     }
 }

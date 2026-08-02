@@ -108,7 +108,7 @@ public class PlayerRopeManager : MonoBehaviour
         }
     }
 
-    private void ThrowingScrap(int removeIndex)
+    public void ThrowingScrap(int removeIndex , bool isDrop = false)
     {
         // ロープからの削除、投擲
         if (towList.Count <= 0)
@@ -117,23 +117,27 @@ public class PlayerRopeManager : MonoBehaviour
         }
         // 投擲
         RopeElement removeElement = towList[removeIndex];
-        removeElement.rb.AddForce(
-            ThrowVectorGetter.CalculateLaunchVectorWithApexHeight(
-                removeElement.gameObj.transform.position,
-                mouseWorldPointer.GetLastPosOrDefault().point,
-                2.0f,
-                out requiredSpeed
-            ),
-            ForceMode.VelocityChange
-        );
-        // 投げたもののStateを変更
+        if (isDrop == false)
+        {
+            removeElement.rb.AddForce(
+                ThrowVectorGetter.CalculateLaunchVectorWithApexHeight(
+                    removeElement.gameObj.transform.position,
+                    mouseWorldPointer.GetLastPosOrDefault().point,
+                    2.0f,
+                    out requiredSpeed
+                ),
+                ForceMode.VelocityChange
+            );
+        }
+        else
+        {
+            removeElement.rb.AddForce(new Vector3(Random.Range(-0.2f, 0.2f), 2, Random.Range(-0.2f, 0.2f)));
+        }
+        // Stateを変更
         removeElement.scrapScript.scrapState = BaseScrap.ScrapState.InFlight;
-
         // ロープの管理下から外す。
         towList.RemoveAt(removeIndex);
-
     }
-
     public void MargeThorowScrap()
     {
         // Scrapの合体
@@ -172,6 +176,15 @@ public class PlayerRopeManager : MonoBehaviour
         towList[0].scrapScript.mass += towList[1].scrapScript.mass;
         
         towList.RemoveAt(1);
+    }
+    
+    public void dropAllScrap()
+    {
+        // 要素がなくなるまで常に先頭を削除する
+        while (towList.Count > 0)
+        {
+            ThrowingScrap(0, true);
+        }
     }
 
 }

@@ -9,11 +9,9 @@
   <component name="ChangeListManager">
     <list default="true" id="575c2067-8117-4c24-8fbf-3b731642563d" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.ScrapLinker/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ScrapLinker/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Enemy/NitroBolt.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Enemy/NitroBolt.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemy/NitroBolt.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemy/NitroBolt.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemy/NitroGenOxides.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemy/NitroGenOxides.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerRopeManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerRopeManager.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,61 +37,61 @@
   </component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="2.092785948124522E-8" />
-      <entry key="MS500" value="0.02911688841577416" />
-      <entry key="S2" value="0.4130819709641729" />
-      <entry key="S5" value="0.7021250959157976" />
-      <entry key="S10" value="0.8379290518464284" />
-      <entry key="S30" value="0.9431737774783384" />
-      <entry key="S60" value="1.0281702823977843" />
-      <entry key="M2" value="1.9060564728346994" />
-      <entry key="M5" value="7.458185390765849" />
-      <entry key="M10" value="16.677205147683136" />
-      <entry key="M15" value="26.414870782310775" />
-      <entry key="M30" value="59.81840471767265" />
-      <entry key="H1" value="122.8792753234828" />
-      <entry key="H2" value="208.4033368392232" />
-      <entry key="H4" value="293.3108183827566" />
-      <entry key="D1" value="413.9052241514441" />
-      <entry key="W1" value="442.0348858050077" />
+      <entry key="MS100" value="0.0" />
+      <entry key="MS500" value="3.4881129161956173E-78" />
+      <entry key="S2" value="4.663301106173562E-20" />
+      <entry key="S5" value="2.5877223625001867E-8" />
+      <entry key="S10" value="2.7956780765740893E-4" />
+      <entry key="S30" value="0.18593707134333312" />
+      <entry key="S60" value="1.3501617801281647" />
+      <entry key="M2" value="6.147663598995317" />
+      <entry key="M5" value="23.786012945469047" />
+      <entry key="M10" value="45.05185421834711" />
+      <entry key="M15" value="59.20406387174429" />
+      <entry key="M30" value="86.05113188280251" />
+      <entry key="H1" value="131.67190819745392" />
+      <entry key="H2" value="221.15832277662037" />
+      <entry key="H4" value="341.3790645542585" />
+      <entry key="D1" value="556.2443663885628" />
+      <entry key="W1" value="612.7880385658048" />
     </decayedCancelled>
     <decayedSelected>
-      <entry key="MS100" value="1.000000000000024" />
-      <entry key="MS500" value="1.0018865943924313" />
-      <entry key="S2" value="1.20841051885659" />
-      <entry key="S5" value="1.5340327040239257" />
-      <entry key="S10" value="1.730775412848521" />
-      <entry key="S30" value="1.9007472503869551" />
-      <entry key="S60" value="1.9586903749830853" />
-      <entry key="M2" value="2.2435800355875033" />
-      <entry key="M5" value="4.4926240458280144" />
-      <entry key="M10" value="8.247035200861042" />
-      <entry key="M15" value="11.801883430491037" />
-      <entry key="M30" value="22.841574940729092" />
-      <entry key="H1" value="42.175899637574666" />
-      <entry key="H2" value="66.9640694654946" />
-      <entry key="H4" value="91.1746917422629" />
-      <entry key="D1" value="126.18256636949795" />
-      <entry key="W1" value="134.52080576505313" />
+      <entry key="MS100" value="1.0" />
+      <entry key="MS500" value="1.0" />
+      <entry key="S2" value="1.0" />
+      <entry key="S5" value="1.0000000043392099" />
+      <entry key="S10" value="1.0000921225026906" />
+      <entry key="S30" value="1.074960556526586" />
+      <entry key="S60" value="1.4982943312570578" />
+      <entry key="M2" value="2.714938386363784" />
+      <entry key="M5" value="6.126654187450047" />
+      <entry key="M10" value="10.671398517137936" />
+      <entry key="M15" value="14.287109723797258" />
+      <entry key="M30" value="21.78408034026449" />
+      <entry key="H1" value="34.73236156043018" />
+      <entry key="H2" value="60.2792155574488" />
+      <entry key="H4" value="94.58070842472418" />
+      <entry key="D1" value="156.51122946778574" />
+      <entry key="W1" value="173.01044383627354" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="7.566576014967407E-5" />
-      <entry key="MS500" value="0.15610948073058395" />
-      <entry key="S2" value="1.0353510475058674" />
-      <entry key="S5" value="1.8760047994581133" />
-      <entry key="S10" value="2.354218297345628" />
-      <entry key="S30" value="2.7628072177823597" />
-      <entry key="S60" value="2.9434378174413274" />
-      <entry key="M2" value="4.114539046685113" />
-      <entry key="M5" value="11.902255623982459" />
-      <entry key="M10" value="24.874627178470778" />
-      <entry key="M15" value="38.16891951328042" />
-      <entry key="M30" value="82.61323626225204" />
-      <entry key="H1" value="165.01071239589226" />
-      <entry key="H2" value="275.33115904715225" />
-      <entry key="H4" value="384.46061713124504" />
-      <entry key="D1" value="540.0820838240354" />
-      <entry key="W1" value="576.5548252963912" />
+      <entry key="MS100" value="7.777362311523117E-10" />
+      <entry key="MS500" value="0.015071846634127164" />
+      <entry key="S2" value="0.3503818622701865" />
+      <entry key="S5" value="0.6573802661445094" />
+      <entry key="S10" value="0.8111253277381236" />
+      <entry key="S30" value="1.1847754955800276" />
+      <entry key="S60" value="2.785150433865638" />
+      <entry key="M2" value="8.786700627234271" />
+      <entry key="M5" value="29.813845398497275" />
+      <entry key="M10" value="55.6282381577316" />
+      <entry key="M15" value="73.40704252503326" />
+      <entry key="M30" value="107.7747442852834" />
+      <entry key="H1" value="166.36026974791992" />
+      <entry key="H2" value="281.4019550535191" />
+      <entry key="H4" value="435.93273647076546" />
+      <entry key="D1" value="712.7483431041204" />
+      <entry key="W1" value="785.7973436463866" />
     </decayedShown>
   </component>
   <component name="ProjectColorInfo">{
@@ -126,7 +124,7 @@
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;ml.llm.LLMConfigurable&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.updates&quot;,
     &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
@@ -222,6 +220,9 @@
       <workItem from="1785338648054" duration="4970000" />
       <workItem from="1785512550706" duration="2647000" />
       <workItem from="1785516883190" duration="3171000" />
+      <workItem from="1785595782337" duration="3426000" />
+      <workItem from="1785599563933" duration="5650000" />
+      <workItem from="1785663501639" duration="1712000" />
     </task>
     <servers />
   </component>
