@@ -7,10 +7,7 @@
     <configurations />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="575c2067-8117-4c24-8fbf-3b731642563d" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.ScrapLinker/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ScrapLinker/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemy/BaseEnemy.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemy/BaseEnemy.cs" afterDir="false" />
-    </list>
+    <list default="true" id="575c2067-8117-4c24-8fbf-3b731642563d" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -221,7 +218,7 @@
       <workItem from="1785595782337" duration="3426000" />
       <workItem from="1785599563933" duration="5650000" />
       <workItem from="1785663501639" duration="2088000" />
-      <workItem from="1785741035706" duration="7320000" />
+      <workItem from="1785741035706" duration="7997000" />
     </task>
     <servers />
   </component>
