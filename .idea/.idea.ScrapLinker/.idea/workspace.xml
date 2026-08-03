@@ -9,7 +9,7 @@
   <component name="ChangeListManager">
     <list default="true" id="575c2067-8117-4c24-8fbf-3b731642563d" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.ScrapLinker/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ScrapLinker/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/RespawnPoint.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/RespawnPoint.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemy/BaseEnemy.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemy/BaseEnemy.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,7 +26,7 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/AudioRequestElement.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$USER_HOME$/.jetbrains/acp.json" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/interface/IDamageable.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="McpProjectServerCommands">
@@ -35,61 +35,61 @@
   </component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="0.0" />
-      <entry key="MS500" value="3.4881129161956173E-78" />
-      <entry key="S2" value="4.663301106173562E-20" />
-      <entry key="S5" value="2.5877223625001867E-8" />
-      <entry key="S10" value="2.7956780765740893E-4" />
-      <entry key="S30" value="0.18593707134333312" />
-      <entry key="S60" value="1.3501617801281647" />
-      <entry key="M2" value="6.147663598995317" />
-      <entry key="M5" value="23.786012945469047" />
-      <entry key="M10" value="45.05185421834711" />
-      <entry key="M15" value="59.20406387174429" />
-      <entry key="M30" value="86.05113188280251" />
-      <entry key="H1" value="131.67190819745392" />
-      <entry key="H2" value="221.15832277662037" />
-      <entry key="H4" value="341.3790645542585" />
-      <entry key="D1" value="556.2443663885628" />
-      <entry key="W1" value="612.7880385658048" />
-    </decayedCancelled>
-    <decayedSelected>
       <entry key="MS100" value="1.0" />
       <entry key="MS500" value="1.0" />
       <entry key="S2" value="1.0" />
-      <entry key="S5" value="1.0000000043392099" />
-      <entry key="S10" value="1.0000921225026906" />
-      <entry key="S30" value="1.074960556526586" />
-      <entry key="S60" value="1.4982943312570578" />
-      <entry key="M2" value="2.714938386363784" />
-      <entry key="M5" value="6.126654187450047" />
-      <entry key="M10" value="10.671398517137936" />
-      <entry key="M15" value="14.287109723797258" />
-      <entry key="M30" value="21.78408034026449" />
-      <entry key="H1" value="34.73236156043018" />
-      <entry key="H2" value="60.2792155574488" />
-      <entry key="H4" value="94.58070842472418" />
-      <entry key="D1" value="156.51122946778574" />
-      <entry key="W1" value="173.01044383627354" />
+      <entry key="S5" value="1.0" />
+      <entry key="S10" value="1.0" />
+      <entry key="S30" value="1.000000013010936" />
+      <entry key="S60" value="1.0001140655336394" />
+      <entry key="M2" value="1.010702973189091" />
+      <entry key="M5" value="1.2789014906091" />
+      <entry key="M10" value="4.4731661360056325" />
+      <entry key="M15" value="11.635560696356531" />
+      <entry key="M30" value="38.82656119229147" />
+      <entry key="H1" value="90.61938846701274" />
+      <entry key="H2" value="185.57671086280249" />
+      <entry key="H4" value="316.35193817444565" />
+      <entry key="D1" value="562.1224067819044" />
+      <entry key="W1" value="628.8673054470155" />
+    </decayedCancelled>
+    <decayedSelected>
+      <entry key="MS100" value="0.0" />
+      <entry key="MS500" value="0.0" />
+      <entry key="S2" value="0.0" />
+      <entry key="S5" value="1.2462608797206514E-131" />
+      <entry key="S10" value="3.5497117113845297E-66" />
+      <entry key="S30" value="2.0392394816813209E-22" />
+      <entry key="S60" value="2.5661164672761164E-11" />
+      <entry key="M2" value="1.1300370915109808E-5" />
+      <entry key="M5" value="0.04115572287594843" />
+      <entry key="M10" value="0.8932040071411614" />
+      <entry key="M15" value="2.8163770830103254" />
+      <entry key="M30" value="10.215999859832756" />
+      <entry key="H1" value="24.57538219852798" />
+      <entry key="H2" value="51.382347861022986" />
+      <entry key="H4" value="88.51346268846942" />
+      <entry key="D1" value="159.07627067875865" />
+      <entry key="W1" value="178.46471767324405" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="7.777362311523117E-10" />
-      <entry key="MS500" value="0.015071846634127164" />
-      <entry key="S2" value="0.3503818622701865" />
-      <entry key="S5" value="0.6573802661445094" />
-      <entry key="S10" value="0.8111253277381236" />
-      <entry key="S30" value="1.1847754955800276" />
-      <entry key="S60" value="2.785150433865638" />
-      <entry key="M2" value="8.786700627234271" />
-      <entry key="M5" value="29.813845398497275" />
-      <entry key="M10" value="55.6282381577316" />
-      <entry key="M15" value="73.40704252503326" />
-      <entry key="M30" value="107.7747442852834" />
-      <entry key="H1" value="166.36026974791992" />
-      <entry key="H2" value="281.4019550535191" />
-      <entry key="H4" value="435.93273647076546" />
-      <entry key="D1" value="712.7483431041204" />
-      <entry key="W1" value="785.7973436463866" />
+      <entry key="MS100" value="0.21763764082403103" />
+      <entry key="MS500" value="0.7371346086455506" />
+      <entry key="S2" value="0.9265880618903709" />
+      <entry key="S5" value="0.9699619103417348" />
+      <entry key="S10" value="0.9848664428955506" />
+      <entry key="S30" value="0.9949298304457889" />
+      <entry key="S60" value="0.9975747518598929" />
+      <entry key="M2" value="1.0093972294406972" />
+      <entry key="M5" value="1.3189044047663663" />
+      <entry key="M10" value="5.360165120512203" />
+      <entry key="M15" value="14.438548206941492" />
+      <entry key="M30" value="49.01786936719306" />
+      <entry key="H1" value="115.16606063834038" />
+      <entry key="H2" value="236.9300369327543" />
+      <entry key="H4" value="404.8407808457842" />
+      <entry key="D1" value="721.1914228702547" />
+      <entry key="W1" value="807.3308652212232" />
     </decayedShown>
   </component>
   <component name="ProjectColorInfo">{
@@ -101,32 +101,32 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Device#class com.jetbrains.rider.plugins.unity.run.devices.UnityEditorDeviceKind#com.jetbrains.rider.plugins.unity.run.devices.UnityDevicesProvider#Unity のアタッチ先: Attach to&quot;: &quot;Unity エディター&quot;,
-    &quot;DeviceKind#com.jetbrains.rider.plugins.unity.run.devices.UnityDevicesProvider&quot;: &quot;Unity エディター&quot;,
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.MCP Project settings loaded&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.readMode.enableVisualFormatting&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
-    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
-    &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.updates&quot;,
-    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Device#class com.jetbrains.rider.plugins.unity.run.devices.UnityEditorDeviceKind#com.jetbrains.rider.plugins.unity.run.devices.UnityDevicesProvider#Unity のアタッチ先: Attach to": "Unity エディター",
+    "DeviceKind#com.jetbrains.rider.plugins.unity.run.devices.UnityDevicesProvider": "Unity エディター",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.MCP Project settings loaded": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.cidr.known.project.marker": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.readMode.enableVisualFormatting": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "cidr.known.project.marker": "true",
+    "codeWithMe.voiceChat.enabledByDefault": "false",
+    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
+    "git-widget-placeholder": "main",
+    "ignore.virus.scanning.warn.message": "true",
+    "junie.onboarding.icon.badge.shown": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "reference.settingsdialog.IDE.editor.colors.com.jetbrains.rider.ideaInterop.settings.colors.RiderGeneralColorSettingsPage",
+    "to.speed.mode.migration.done": "true",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RunManager" selected="Unity のアタッチ先.Attach to">
     <configuration name="ユニットテスト (バッチモード)" type="RunUnityExe" factoryName="Unity Executable">
       <option name="EXE_PATH" value="C:\Program Files\Unity\Hub\Editor\6000.3.11f1\Editor\Unity.exe" />
@@ -221,6 +221,7 @@
       <workItem from="1785595782337" duration="3426000" />
       <workItem from="1785599563933" duration="5650000" />
       <workItem from="1785663501639" duration="2088000" />
+      <workItem from="1785741035706" duration="7320000" />
     </task>
     <servers />
   </component>
