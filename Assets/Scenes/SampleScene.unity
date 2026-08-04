@@ -1358,6 +1358,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 4c931b4ddb1c3604499753dc8597830f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1501761496}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 4c931b4ddb1c3604499753dc8597830f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1501761497}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 4c931b4ddb1c3604499753dc8597830f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1501761499}
   m_SourcePrefab: {fileID: 100100000, guid: 4c931b4ddb1c3604499753dc8597830f, type: 3}
 --- !u!1 &1501761495 stripped
 GameObject:
@@ -1387,6 +1393,49 @@ CapsuleCollider:
   m_Height: 2.3
   m_Direction: 1
   m_Center: {x: 0, y: 1.15, z: 0}
+--- !u!114 &1501761497
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1501761495}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e0983988a0d4bf4bbce440d857e56ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HeavyMatal
+  state: 0
+  maxHp: 40
+  attackDamage: 20
+  detectionRange: 8
+  loseRange: 12
+  attackRange: 1.6
+  agent: {fileID: 0}
+  animator: {fileID: 0}
+  deathDelay: 0
+--- !u!195 &1501761499
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1501761495}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!1001 &1710691778
 PrefabInstance:
   m_ObjectHideFlags: 0
