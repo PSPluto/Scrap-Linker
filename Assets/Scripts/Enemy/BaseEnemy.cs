@@ -207,7 +207,7 @@ public class BaseEnemy : MonoBehaviour, IDamageable
         if (hitCollider.TryGetComponent<Rigidbody>(out Rigidbody rb))
         {
             Vector3 knockbackDir = CalculateKnockbackDirection(hitCollider.transform.position);
-            rb.AddForce(knockbackDir * 20f, ForceMode.Impulse);
+            rb.AddForce(knockbackDir * 40f, ForceMode.Impulse);
         }
     }
 

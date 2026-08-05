@@ -11,18 +11,28 @@ public class ClearObjective : MonoBehaviour
     {
         if (collision.gameObject.tag.StartsWith("Scrap/Parts"))
         {
+            BaseScrap bS = collision.gameObject.GetComponent<BaseScrap>();
+
+            if (!(bS.scrapState == BaseScrap.ScrapState.InFlight || bS.scrapState == BaseScrap.ScrapState.Usually))
+            {
+                return;
+            }
             switch (collision.gameObject.tag)
             {
                 case "Scrap/Parts/A":
                     repairList[0] = true;
+                    Destroy(collision.gameObject);
                     break;
                 
                 case "Scrap/Parts/B":
                     repairList[1] = true;
+                    Destroy(collision.gameObject);
+
                     break;
                 
                 case "Scrap/Parts/C":
                     repairList[2] = true;
+                    Destroy(collision.gameObject);
                     break;
                 
                 default:
