@@ -6,6 +6,9 @@ public class ClearObjective : MonoBehaviour
 {
     // 壊れた飛行船
     public bool[] repairList = new bool[] {false,false,false};
+    [SerializeField]private MeshRenderer repairMeshA;
+    [SerializeField]private MeshRenderer repairMeshB;
+    [SerializeField]private MeshRenderer repairMeshC;
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -22,17 +25,21 @@ public class ClearObjective : MonoBehaviour
                 case "Scrap/Parts/A":
                     repairList[0] = true;
                     Destroy(collision.gameObject);
+                    repairMeshA.enabled = true;
                     break;
                 
                 case "Scrap/Parts/B":
                     repairList[1] = true;
                     Destroy(collision.gameObject);
+                    repairMeshB.enabled = true;
 
                     break;
                 
                 case "Scrap/Parts/C":
                     repairList[2] = true;
                     Destroy(collision.gameObject);
+                    repairMeshC.enabled = true;
+                    
                     break;
                 
                 default:
@@ -46,6 +53,7 @@ public class ClearObjective : MonoBehaviour
         }
     }
 
+    // クリアしたかどうかの確認
     private bool CheckrepairList()
     {
         foreach (var element in repairList)
