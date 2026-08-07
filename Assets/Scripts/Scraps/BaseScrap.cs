@@ -93,13 +93,15 @@ public class BaseScrap : MonoBehaviour
         }
         GameObject hitParticleObj = Instantiate(hitParticlePrefab, collision.GetContact(0).point, Quaternion.FromToRotation(Vector3.forward ,collision.GetContact(0).normal*-1));
 
-        // ダメージを受けるモノに当たった場合
+        // ダメージを受けるモノ（ダメージを与えることができるモノ）に当たった場合
         if (collision.gameObject.TryGetComponent<IDamageable>(out IDamageable damageable))
         {
             if (!collision.gameObject.CompareTag(ignoreTag))
             {
                 // ダメージ
-                damageable.TakeDamage(ReturnLevelDamage(resultDamageLevel));
+                float addDamage = ReturnLevelDamage(resultDamageLevel);
+                damageable.TakeDamage(addDamage);
+                DamageUIManager.Instance.NewDamageText(addDamage, collision.transform.position);
             }
             
             //HITパーティクル

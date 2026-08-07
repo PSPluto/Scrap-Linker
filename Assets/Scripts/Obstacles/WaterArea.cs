@@ -6,7 +6,6 @@ using UnityEngine;
 public class WaterArea : MonoBehaviour
 {
     private HashSet<Buoyancy> buoyancies = new HashSet<Buoyancy>();
-    [SerializeField]private float upForce = 20f;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -29,7 +28,7 @@ public class WaterArea : MonoBehaviour
     {
         foreach (var buoyancyObj in buoyancies)
         {
-            buoyancyObj.rb.AddForce(new Vector3(0, upForce, 0), ForceMode.Acceleration);
+            buoyancyObj.rb.AddForce(new Vector3(0, buoyancyObj.upForce, 0), ForceMode.Force);
         }
     }
 }

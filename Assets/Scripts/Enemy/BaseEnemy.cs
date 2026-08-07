@@ -94,6 +94,8 @@ public class BaseEnemy : MonoBehaviour, IDamageable
 
         // 現在のステートに応じた更新処理の実行
         UpdateCurrentState();
+
+        // DamageUIManager.Instance.NewDamageText(111, this.transform.position);
     }
 
     /// <summary>

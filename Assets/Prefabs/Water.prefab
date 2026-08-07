@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4535594216592917493}
   - component: {fileID: 7092418429149265587}
   - component: {fileID: 6410152571557889741}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Water
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -68,7 +68,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ad3784a65f852e4a9b14d82cd9b3bbd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WaterArea
-  upForce: 20
 --- !u!23 &7092418429149265587
 MeshRenderer:
   m_ObjectHideFlags: 0
