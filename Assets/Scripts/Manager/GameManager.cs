@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public static class GameManager
 {
-    public static float Time = 240;
+    public static float time = 20;
     public enum GameState
     {
         Title,
@@ -28,7 +28,7 @@ public static class GameManager
     }
     public static IEnumerator TimeCount()
     {
-        count = Time;
+        count = time;
         while (true)
         {
             if (count == 0)
@@ -40,7 +40,17 @@ public static class GameManager
             yield return new WaitForSeconds(1f);
         }
     }
-    
+
+    private static void CheckState()
+    {
+        if (gameState == GameState.GameOver)
+        {
+            Time.timeScale = 0;
+            Debug.Log("ゲームオーバー");
+        }
+    }
+
+
 }
 
 public struct GameStateChangeLog
