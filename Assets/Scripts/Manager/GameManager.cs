@@ -1,5 +1,7 @@
 using System.Collections;
+using System.Threading;
 using UnityEngine;
+using UnityEngine.UI;
 
 public static class GameManager
 {
@@ -13,6 +15,7 @@ public static class GameManager
     };
 
     public static GameState gameState =  GameState.Title;
+    public static float count;
 
     public static GameStateChangeLog ChangeGameState(GameState nextState)
     {
@@ -23,9 +26,9 @@ public static class GameManager
     public static void  StartTimer()
     {
     }
-    static IEnumerator TimeCount()
+    public static IEnumerator TimeCount()
     {
-        float count = Time;
+        count = Time;
         while (true)
         {
             if (count == 0)
@@ -33,8 +36,8 @@ public static class GameManager
                 GameManager.gameState = GameState.GameOver;
                 yield break;
             }
-            count -= 0.1f;
-            yield return new WaitForSeconds(0.1f);
+            count -= 1f;
+            yield return new WaitForSeconds(1f);
         }
     }
     
