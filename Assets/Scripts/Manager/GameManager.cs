@@ -22,7 +22,6 @@ public static class GameManager
     }
     public static void  StartTimer()
     {
-        
     }
     static IEnumerator TimeCount()
     {
