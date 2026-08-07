@@ -33,6 +33,9 @@ public class PlayerController : MonoBehaviour , IDamageable
 
     [Header("移動速度の低下倍率")] public float deBuffSpeedMultiplier = 0.8f;
     [Header("移動速度の残りデバフ時間")] public float debuffTime = 0f;
+    
+    [Header("音")]
+    [SerializeField]private AudioClip damageSound;
 
     // WASD入力値
     private Vector2 _value = Vector2.zero;
@@ -124,6 +127,7 @@ public class PlayerController : MonoBehaviour , IDamageable
     public void TakeDamage(float damageAmount)
     {
         _currentHp -= damageAmount;
+        AudioManager.Instance.PlaySound(damageSound, transform.position);
         Debug.Log($"Player HP: {_currentHp}/{maxHp}");
         if (_currentHp <= 0)
         {

@@ -1,10 +1,20 @@
+using System;
 using Unity.VisualScripting;
 using UnityEngine;
 
 public class RespawnPoint : MonoBehaviour
 {
 
-    [SerializeField] private float offset = 1f; 
+    [SerializeField] private float offset = 1f;
+    [SerializeField] private bool isStartPoint = false;
+
+    private void Start()
+    {
+        if (isStartPoint)
+        {
+            SetRespawnPoint();
+        }
+    }
 
     void OnCollisionEnter( Collision collision)
     {
@@ -13,6 +23,11 @@ public class RespawnPoint : MonoBehaviour
             Debug.Log($"何かが接触しましたが勢いが足りませんでした：{collision.relativeVelocity.magnitude}");
             return;
         }
+        SetRespawnPoint();
+    }
+
+    void SetRespawnPoint()
+    {
         Vector3 newRespawnPos = (this.transform.forward * 1) + this.transform.position + new Vector3(0,1,0);
         PlayerController.Instance.respawnPos = newRespawnPos;
         Debug.Log($"セーブポイントが{newRespawnPos}");

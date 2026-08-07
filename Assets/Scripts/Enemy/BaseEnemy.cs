@@ -54,7 +54,12 @@ public class BaseEnemy : MonoBehaviour, IDamageable
     [Header("死亡遅延")] 
     [Tooltip("死亡ステート遷移からオブジェクトが破棄されるまでの遅延時間（秒）")]
     [SerializeField] protected float deathDelay;
-
+    
+    
+    [Header("音")]
+    [SerializeField]private AudioClip deathSound; 
+    [SerializeField]private AudioClip damageSound;
+    [SerializeField] private AudioClip attackSound;
     protected virtual void Start()
     {
         InitializeStatus();
@@ -163,6 +168,7 @@ public class BaseEnemy : MonoBehaviour, IDamageable
     {
         Collider[] hitColliders = GetHitColliders();
         ProcessAttackHits(hitColliders);
+        AudioManager.Instance.PlaySound(attackSound, transform.position);
     }
 
     /// <summary>
@@ -243,8 +249,16 @@ public class BaseEnemy : MonoBehaviour, IDamageable
         if (state == EnemyState.Die) return;
 
         currentHp -= damageAmount;
-        if (currentHp <= 0) ChangeState(EnemyState.Die);
-    }
+        if (currentHp <= 0)
+        {
+            ChangeState(EnemyState.Die);
+            AudioManager.Instance.PlaySound(deathSound, transform.position);
+        }
+        else
+        {
+            AudioManager.Instance.PlaySound(damageSound, transform.position);
+        }
+}
 
     /// <summary>
     /// ステートを変更し、アニメーターおよびNavMeshAgentの状態を同期します。
