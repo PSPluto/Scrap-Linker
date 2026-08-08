@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Threading;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public static class GameManager
@@ -21,6 +22,7 @@ public static class GameManager
     {
         GameStateChangeLog returnState = new GameStateChangeLog { beforeState = gameState, afterState = nextState};
         gameState = nextState;
+        CheckState();
         return returnState;
     }
     public static void  StartTimer()
@@ -34,19 +36,20 @@ public static class GameManager
         {
             if (count == 0)
             {
-                GameManager.gameState = GameState.GameOver;
+                ChangeGameState(GameState.GameOver);
                 yield break;
             }
             count -= 1f;
             yield return new WaitForSeconds(1f);
         }
     }
-
     private static void CheckState()
     {
         if (gameState == GameState.GameOver)
         {
-            Time.timeScale = 0;
+            ChangeGameState(GameState.Title);
+            count = time;
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
             Debug.Log("ゲームオーバー");
         }
     }
