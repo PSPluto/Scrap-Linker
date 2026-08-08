@@ -1,34 +1,44 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 public class WaterArea : MonoBehaviour
 {
-    private HashSet<Buoyancy> buoyancies = new HashSet<Buoyancy>();
+    [SerializeField] private float submergeAccel = 2f;
+    [SerializeField] private float maxForceMultiplier = 2f;
+
+    private Dictionary<Buoyancy, float> submergedTime = new Dictionary<Buoyancy, float>();
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.TryGetComponent<Buoyancy>(out Buoyancy buoy))
         {
-            buoyancies.Add(buoy);
-            Debug.Log(buoyancies.Count);
+            submergedTime[buoy] = 0f;
         }
     }
-    
+
     private void OnTriggerExit(Collider other)
     {
         if (other.TryGetComponent<Buoyancy>(out Buoyancy buoy))
         {
-            buoyancies.Remove(buoy);
+            submergedTime.Remove(buoy);
         }
     }
 
     private void FixedUpdate()
     {
-        foreach (var buoyancyObj in buoyancies)
+        List<Buoyancy> keys = new List<Buoyancy>(submergedTime.Keys);
+
+        foreach (var buoy in keys)
         {
-            buoyancyObj.rb.AddForce(new Vector3(0, buoyancyObj.upForce, 0), ForceMode.Force);
+            submergedTime[buoy] += Time.fixedDeltaTime;
+            float t = submergedTime[buoy];
+
+            // 時間経過で力が強くなる(最大値でクランプ)
+            float multiplier = Mathf.Min(1f + t * submergeAccel, maxForceMultiplier);
+            float force = buoy.upForce * multiplier;
+
+            buoy.rb.AddForce(new Vector3(0, force, 0), ForceMode.Force);
         }
     }
 }
