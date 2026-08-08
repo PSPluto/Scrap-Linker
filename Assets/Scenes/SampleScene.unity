@@ -213,11 +213,11 @@ MonoBehaviour:
   currentVelocity: {x: 0, y: 0, z: 0}
   jumpForce: 4
   groundCheckOriginHeight: -0.4
-  groundCheckDistance: 0.53
+  groundCheckDistance: 0.55
   groundLayer:
     serializedVersion: 2
     m_Bits: 59
-  jumpCooldown: 0.2
+  jumpCooldown: 0.3
   maxHp: 30
   deBuffSpeedMultiplier: 0.7
   debuffTime: 0
