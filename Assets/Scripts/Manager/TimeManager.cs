@@ -18,7 +18,7 @@ public class ScoreManager : MonoBehaviour
 
     void StartCount()
     {
-        StartCoroutine(GameManager.TimeCount());
+        StartCoroutine(GameManager.TimeCount(60*3));
     }
     // Update is called once per frame
     void Update()

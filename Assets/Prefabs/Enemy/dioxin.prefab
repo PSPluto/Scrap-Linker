@@ -186,10 +186,13 @@ MonoBehaviour:
   attackDamage: 15
   detectionRange: 8
   loseRange: 12
-  attackRange: 1.6
+  attackRange: 1.25
   agent: {fileID: 6574180694140665432}
   animator: {fileID: 7049434129069847991}
   deathDelay: 3
+  deathSound: {fileID: 8300000, guid: d2a7fab3d31757044800ddd8ab31d0e0, type: 3}
+  damageSound: {fileID: 8300000, guid: 8bd83f89ac755b549b03f422c065c09f, type: 3}
+  attackSound: {fileID: 8300000, guid: 42ebfe72db96ec94e94c8c6c6e21976f, type: 3}
 --- !u!195 &6574180694140665432
 NavMeshAgent:
   m_ObjectHideFlags: 0

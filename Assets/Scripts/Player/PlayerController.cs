@@ -112,10 +112,10 @@ public class PlayerController : MonoBehaviour , IDamageable
             QueryTriggerInteraction.Ignore
         );
 
-        if (hitGround)
-        {
-            Debug.Log($"Ground hit: {hit.collider.gameObject.name}, point: {hit.point}, normal: {hit.normal}, distance: {hit.distance}");
-        }
+        // if (hitGround)
+        // {
+        //     Debug.Log($"Ground hit: {hit.collider.gameObject.name}, point: {hit.point}, normal: {hit.normal}, distance: {hit.distance}");
+        // }
 
         _isGrounded = hitGround;
 

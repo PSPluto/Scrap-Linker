@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public static class GameManager
 {
-    public static float time = 20;
+    // public static float time = 20;
     public enum GameState
     {
         Title,
@@ -28,7 +28,7 @@ public static class GameManager
     public static void  StartTimer()
     {
     }
-    public static IEnumerator TimeCount()
+    public static IEnumerator TimeCount(float time)
     {
         count = time;
         while (true)
@@ -47,7 +47,6 @@ public static class GameManager
         if (gameState == GameState.GameOver)
         {
             ChangeGameState(GameState.Title);
-            count = time;
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
             Debug.Log("ゲームオーバー");
         }

@@ -118,6 +118,9 @@ MonoBehaviour:
   agent: {fileID: 1383848343292664090}
   animator: {fileID: 60744957595161723}
   deathDelay: 1.5
+  deathSound: {fileID: 8300000, guid: c547db80c0567714580bbda4474796bf, type: 3}
+  damageSound: {fileID: 8300000, guid: c0377e7eae5cd4f46899f89a379dbac7, type: 3}
+  attackSound: {fileID: 8300000, guid: a447b9c432496e34ebd1b952aef8c36c, type: 3}
 --- !u!195 &1383848343292664090
 NavMeshAgent:
   m_ObjectHideFlags: 0
