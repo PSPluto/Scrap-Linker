@@ -164,6 +164,7 @@ public class PlayerRopeManager : MonoBehaviour
             // 性能の受け渡し
             towList[0].scrapScript.mass += listZeroObj.scrapScript.mass;
             towList[0].rb.mass = towList[0].scrapScript.mass;
+            AddDamageStats(towList[0].scrapScript, listZeroObj.scrapScript);
         }
         
         towList[1].scrapScript.isMerged = true;
@@ -174,8 +175,19 @@ public class PlayerRopeManager : MonoBehaviour
         towList[1].gameObj.transform.localPosition = new Vector3(Random.Range(-0.2f, 0.2f), Random.Range(-0.2f, 0.2f), Random.Range(-0.2f, 0.2f));
         towList[1].gameObj.transform.LookAt(towList[0].gameObj.transform);
         towList[0].scrapScript.mass += towList[1].scrapScript.mass;
+        AddDamageStats(towList[0].scrapScript, towList[1].scrapScript);
         
         towList.RemoveAt(1);
+    }
+
+    /// <summary>
+    /// マージ時にダメージ関連のステータスを統合先(target)へ加算する
+    /// </summary>
+    private void AddDamageStats(BaseScrap target, BaseScrap source)
+    {
+        target.weakDamage += source.weakDamage;
+        target.baseDamage += source.baseDamage;
+        target.criticalDamage += source.criticalDamage;
     }
     
     public void dropAllScrap()

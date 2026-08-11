@@ -27,5 +27,9 @@ public class WallObstacle : MonoBehaviour, IDamageable
                 }
             }
         }
+        else
+        {
+            CurrentDurability = MaxDurability;
+        }
     }
 }

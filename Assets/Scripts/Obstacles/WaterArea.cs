@@ -14,16 +14,6 @@ public class WaterArea : MonoBehaviour
     [Tooltip("水中にいる間の角速度ドラッグ(回転を落ち着かせる)")]
     [SerializeField] private float waterAngularDrag = 1f;
 
-    [Header("姿勢安定化(任意)")]
-    [Tooltip("水面で自然に水平姿勢へ戻ろうとするトルクの強さ。0で無効")]
-    [SerializeField] private float uprightTorque = 2f;
-
-    [Header("波(任意)")]
-    [SerializeField] private bool useWave = false;
-    [SerializeField] private float waveHeight = 0.3f;
-    [SerializeField] private float waveSpeed = 1f;
-    [SerializeField] private float waveScale = 0.5f;
-    
     private Collider waterCollider;
 
     private void Awake()
@@ -81,11 +71,7 @@ public class WaterArea : MonoBehaviour
     }
     private float GetWaterSurfaceY(Vector3 worldPos)
     {
-        float baseY = waterCollider != null ? waterCollider.bounds.max.y : transform.position.y;
-        if (!useWave) return baseY;
-
-        float wave = Mathf.Sin(Time.time * waveSpeed + (worldPos.x + worldPos.z) * waveScale) * waveHeight;
-        return baseY + wave;
+        return waterCollider != null ? waterCollider.bounds.max.y : transform.position.y;
     }
 
     private void FixedUpdate()
@@ -127,7 +113,7 @@ public class WaterArea : MonoBehaviour
 
             // 浮力(浸水率に比例。完全に沈んだ状態でBuoyancy.upForce相当の力)
             float force = buoyancyStrength * buoy.upForce * submersion;
-            Debug.Log($"[WaterArea] {buoy.name} submersion={submersion:F2} force={force:F1} mass={rb.mass} isKinematic={rb.isKinematic} velocity={rb.linearVelocity}");
+            // Debug.Log($"[WaterArea] {buoy.name} submersion={submersion:F2} force={force:F1} mass={rb.mass} isKinematic={rb.isKinematic} velocity={rb.linearVelocity}");
             rb.AddForceAtPosition(Vector3.up * force, bounds.center, ForceMode.Force);
 
             // 水中抵抗を浸水率に応じて滑らかに適用
@@ -135,11 +121,11 @@ public class WaterArea : MonoBehaviour
             rb.angularDamping = Mathf.Lerp(body.originalAngularDrag, waterAngularDrag, submersion);
 
             // 水面付近で自然に水平姿勢へ戻ろうとするトルク(任意)
-            if (uprightTorque > 0f)
+            if (buoy.uprightTorque > 0f)
             {
                 Vector3 currentUp = rb.transform.up;
                 Vector3 torqueAxis = Vector3.Cross(currentUp, Vector3.up);
-                rb.AddTorque(torqueAxis * uprightTorque * submersion, ForceMode.Force);
+                rb.AddTorque(torqueAxis * buoy.uprightTorque * submersion, ForceMode.Force);
             }
             
         }

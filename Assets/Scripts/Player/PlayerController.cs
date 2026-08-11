@@ -32,9 +32,9 @@ public class PlayerController : MonoBehaviour , IDamageable
 
     [Header("ジャンプ設定")]
     public float jumpForce = 6f;
-    [Tooltip("レイの発射高さ（自分のコライダーの外側からスタートさせるため少し上げる）")]
+    [Tooltip("レイの発射高")]
     public float groundCheckOriginHeight = 0.1f;
-    [Tooltip("発射点からさらに下に飛ばす距離")]
+    [Tooltip("飛ばす距離")]
     public float groundCheckDistance = 0.3f;
     public LayerMask groundLayer = ~0;
     public float jumpCooldown = 0.1f;
