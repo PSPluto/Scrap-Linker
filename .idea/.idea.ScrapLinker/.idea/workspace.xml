@@ -11,11 +11,8 @@
       <change beforePath="$PROJECT_DIR$/.idea/.idea.ScrapLinker/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ScrapLinker/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene/NavMesh-NavMeshGen.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SampleScene/NavMesh-NavMeshGen.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Obstacles/WallObstacle.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Obstacles/WallObstacle.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Obstacles/WaterArea.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Obstacles/WaterArea.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerRopeManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerRopeManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/RB/buoyancy.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/RB/buoyancy.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -239,7 +236,8 @@
       <workItem from="1786093395313" duration="20008000" />
       <workItem from="1786169795226" duration="4263000" />
       <workItem from="1786265933481" duration="5070000" />
-      <workItem from="1786435732435" duration="6722000" />
+      <workItem from="1786435732435" duration="9767000" />
+      <workItem from="1786471715368" duration="233000" />
     </task>
     <servers />
   </component>

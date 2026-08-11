@@ -94,9 +94,16 @@ public class PlayerRopeManager : MonoBehaviour
     }
     public void OnCollisionEnter(Collision collision)
     {
-        // ロープへの登録
-        if (!collision.gameObject.CompareTag("Scrap")) return;
+        // 「Scrap/」で始まる下位階層のタグ、または「Scrap」完全一致であるかを判定
+        // （※もしScrapそのもののタグは除外して、下位だけを対象にしたい場合は、後半の「|| tag == "Scrap"」を消してください）
+        string tag = collision.gameObject.tag;
+        if (!(tag.StartsWith("Scrap/") || tag == "Scrap")) return;
+
         BaseScrap scrap = collision.gameObject.GetComponent<BaseScrap>();
+    
+        // コンポーネントが取得できなかった場合の安全対策
+        if (scrap == null) return;
+
         if (scrap.scrapState != BaseScrap.ScrapState.Tethered)
         {
             scrap.scrapState = BaseScrap.ScrapState.Tethered;
@@ -107,6 +114,7 @@ public class PlayerRopeManager : MonoBehaviour
             });
         }
     }
+
 
     public void ThrowingScrap(int removeIndex , bool isDrop = false)
     {

@@ -88,7 +88,7 @@ public class PlayerController : MonoBehaviour , IDamageable
         {
             _value.Normalize();
         }
-        if (transform.position.y < -5f)
+        if (transform.position.y < -3f)
         {
             TakeDamage(_currentHp);
         }
