@@ -5,7 +5,7 @@ using UnityEngine.Rendering.Universal;
 public class ActionAreaProjector : MonoBehaviour
 {
     [SerializeField] float multiplier = 0.2f;
-    //描画側スクリプト
+    //謠冗判蛛ｴ繧ｹ繧ｯ繝ｪ繝励ヨ
     [SerializeField]MouseWorldPointer worldPointer;
     [SerializeField]Transform cameraTransform;
     //[SerializeField]DecalProjector decalProjector;

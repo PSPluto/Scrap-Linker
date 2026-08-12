@@ -22,6 +22,7 @@ public class BaseScrap : MonoBehaviour
         [SerializeField] private Rigidbody myRb;
         [Tooltip("摩擦")]public float damp = 2;
         [Tooltip("質量")]public float mass = 1f; 
+        [Tooltip("上昇力")]public float floatPower = 5f;
 
     [Header ("=== Scrapの設定 ===")]
 
@@ -101,7 +102,7 @@ public class BaseScrap : MonoBehaviour
                 // ダメージ
                 float addDamage = ReturnLevelDamage(resultDamageLevel);
                 damageable.TakeDamage(addDamage);
-                DamageUIManager.Instance.NewDamageText(addDamage, collision.transform.position);
+                DamageUIManager.Instance.NewDamageText(addDamage, collision.contacts[0].point);
             }
             
             //HITパーティクル

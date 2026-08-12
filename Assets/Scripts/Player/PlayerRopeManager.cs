@@ -63,6 +63,14 @@ public class PlayerRopeManager : MonoBehaviour
                 towList[i].rb.linearVelocity = new Vector3(0, 0, 0);
                 towList[i].rb.MoveRotation(transform.rotation);
                 
+
+                Vector3 playerVelocity = PlayerController.Instance.playerRb.linearVelocity;
+                if (playerVelocity.y < 0f)
+                {
+                    BaseScrap scrap = towList[i].gameObj.GetComponent<BaseScrap>();
+                    Vector3 result = new Vector3(playerVelocity.x, playerVelocity.y /scrap.floatPower, playerVelocity.z);
+                    PlayerController.Instance.playerRb.linearVelocity = result;
+                }
                 if (towList[i].scrapScript.scrapState != BaseScrap.ScrapState.Lifted)
                 {
                     towList[i].scrapScript.scrapState = BaseScrap.ScrapState.Lifted;
@@ -189,7 +197,7 @@ public class PlayerRopeManager : MonoBehaviour
     }
 
     /// <summary>
-    /// マージ時にダメージ関連のステータスを統合先(target)へ加算する
+    /// マージ時にステータスをtargetへ加算する
     /// </summary>
     private void AddDamageStats(BaseScrap target, BaseScrap source)
     {
