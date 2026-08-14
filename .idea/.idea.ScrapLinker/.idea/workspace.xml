@@ -9,16 +9,7 @@
   <component name="ChangeListManager">
     <list default="true" id="575c2067-8117-4c24-8fbf-3b731642563d" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.ScrapLinker/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ScrapLinker/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/FBX/map.fbx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/FBX/map.fbx.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene/NavMesh-NavMeshGen.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SampleScene/NavMesh-NavMeshGen.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Camera&amp;Pointer/ActionAreaProjector.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Camera&amp;Pointer/ActionAreaProjector.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Camera&amp;Pointer/CameraFollower.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Camera&amp;Pointer/CameraFollower.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Camera&amp;Pointer/CameraTracker.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Camera&amp;Pointer/CameraTracker.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerRopeManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerRopeManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Scraps/BaseScrap.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Scraps/BaseScrap.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene/Main Camera Profile 2.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SampleScene/Main Camera Profile 2.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -244,7 +235,7 @@
       <workItem from="1786265933481" duration="5070000" />
       <workItem from="1786435732435" duration="9767000" />
       <workItem from="1786471715368" duration="233000" />
-      <workItem from="1786514634756" duration="6305000" />
+      <workItem from="1786514634756" duration="10159000" />
     </task>
     <servers />
   </component>
