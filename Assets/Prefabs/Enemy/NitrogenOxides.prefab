@@ -87,6 +87,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 7cb00e4e010733348b805848a9e65444, type: 3}
       insertIndex: -1
       addedObject: {fileID: 439698665433955755}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 7cb00e4e010733348b805848a9e65444, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3655512538546388965}
   m_SourcePrefab: {fileID: 100100000, guid: 7cb00e4e010733348b805848a9e65444, type: 3}
 --- !u!1 &1618155232759612415 stripped
 GameObject:
@@ -208,6 +211,22 @@ MonoBehaviour:
   agent: {fileID: 7744797061856579673}
   animator: {fileID: 3638565401845710536}
   deathDelay: 4
+  deathSound: {fileID: 0}
+  damageSound: {fileID: 0}
+  attackSound: {fileID: 0}
   boltPrefab: {fileID: 1292922769538659527, guid: 0064650288aacee489bfdfee5d6f173a, type: 3}
   boltSpeed: 3
   ShotInterval: 0.4
+--- !u!114 &3655512538546388965
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1618155232759612415}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 236b1cf5763a58843a5cf3c15d5fd11e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ExplanationDisplay
+  explanationText: "\u6575\uFF01"

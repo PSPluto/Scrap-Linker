@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6948463917360854641}
   - component: {fileID: 4800385932952611193}
   - component: {fileID: 87392197169188564}
+  - component: {fileID: 4377713431841340683}
   m_Layer: 0
   m_Name: RespawnPointSaver
   m_TagString: Untagged
@@ -47,6 +48,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RespawnPoint
   offset: 2
+  isStartPoint: 0
+  hitParticlePrefab: {fileID: 5112403345868107898, guid: 6f34ef0d986e9db4199cf75805f79753, type: 3}
 --- !u!136 &87392197169188564
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -70,6 +73,19 @@ CapsuleCollider:
   m_Height: 1.75
   m_Direction: 1
   m_Center: {x: 0, y: 0.9, z: 0}
+--- !u!114 &4377713431841340683
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3532914863144200898}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 236b1cf5763a58843a5cf3c15d5fd11e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ExplanationDisplay
+  explanationText: "\u30BB\u30FC\u30D6\u30DD\u30A4\u30F3\u30C8\u3002\u885D\u6483\u3092\u53D7\u3051\u308B\u3068\u30EA\u30B9\u30DD\u30FC\u30F3\u4F4D\u7F6E\u3092\u66F4\u65B0\u3059\u308B\u3002"
 --- !u!1001 &4444171849453233710
 PrefabInstance:
   m_ObjectHideFlags: 0

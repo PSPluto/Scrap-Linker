@@ -89,6 +89,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 609f4f5cc634ea149aa6efe51a083706, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5278674063746678920}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 609f4f5cc634ea149aa6efe51a083706, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -6855842106204250013}
   m_SourcePrefab: {fileID: 100100000, guid: 609f4f5cc634ea149aa6efe51a083706, type: 3}
 --- !u!1 &3891465594302115007 stripped
 GameObject:
@@ -133,6 +136,7 @@ MonoBehaviour:
   myRb: {fileID: 5278674063746678920}
   damp: 1
   mass: 1
+  floatPower: 1
   weakDamage: 1
   weakHitThreshold: 3
   weakHitSound: {fileID: 8300000, guid: cd4259564b1de59448c47f0d346e6cf9, type: 3}
@@ -149,6 +153,7 @@ MonoBehaviour:
   noDamageHitParticle: {fileID: 0}
   scrapState: 3
   isMerged: 0
+  startPosition: {x: 0, y: 0, z: 0}
 --- !u!54 &5278674063746678920
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -176,3 +181,16 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &-6855842106204250013
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3891465594302115007}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 236b1cf5763a58843a5cf3c15d5fd11e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ExplanationDisplay
+  explanationText: "\u30A8\u30F3\u30B8\u30F3\u3002\u98DB\u884C\u8239\u306E\u4FEE\u7406\u306B\u5FC5\u8981\u306A\u30D1\u30FC\u30C4\u3002\u30C0\u30E1\u30FC\u30B8\u304C\u9AD8\u3044\u3002"

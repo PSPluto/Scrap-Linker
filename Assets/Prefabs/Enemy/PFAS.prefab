@@ -87,6 +87,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: ea3ffd4685bbcca4a8682b820e52a3c6, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8121792267095280090}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: ea3ffd4685bbcca4a8682b820e52a3c6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3258096390685913243}
   m_SourcePrefab: {fileID: 100100000, guid: ea3ffd4685bbcca4a8682b820e52a3c6, type: 3}
 --- !u!1 &3375165584685524969 stripped
 GameObject:
@@ -158,6 +161,9 @@ MonoBehaviour:
   agent: {fileID: 28968536168152387}
   animator: {fileID: 8015512332999961740}
   deathDelay: 2
+  deathSound: {fileID: 0}
+  damageSound: {fileID: 0}
+  attackSound: {fileID: 0}
 --- !u!54 &3309069508238577908
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -208,3 +214,16 @@ CapsuleCollider:
   m_Height: 1.6
   m_Direction: 1
   m_Center: {x: 0, y: 0.2, z: 0}
+--- !u!114 &3258096390685913243
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3375165584685524969}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 236b1cf5763a58843a5cf3c15d5fd11e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ExplanationDisplay
+  explanationText: "\u6575\uFF01"

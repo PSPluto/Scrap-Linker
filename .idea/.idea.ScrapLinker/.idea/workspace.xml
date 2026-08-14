@@ -9,7 +9,25 @@
   <component name="ChangeListManager">
     <list default="true" id="575c2067-8117-4c24-8fbf-3b731642563d" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.ScrapLinker/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ScrapLinker/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene/Main Camera Profile 2.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SampleScene/Main Camera Profile 2.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FBX/map.fbx" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/FBX/map.fbx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FBX/map.png" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/FBX/map.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Enemy/NitrogenOxides.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Enemy/NitrogenOxides.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Enemy/PFAS.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Enemy/PFAS.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Enemy/dioxin.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Enemy/dioxin.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Enemy/heavyMetal.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Enemy/heavyMetal.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/RespawnPointSaver.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/RespawnPointSaver.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Scraps/BaloonGlider.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Scraps/BaloonGlider.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Scraps/WoodStack.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Scraps/WoodStack.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Scraps/barrel.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Scraps/barrel.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Scraps/engine.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Scraps/engine.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/WallObstacle.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/WallObstacle.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/rail.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/rail.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/tikei_foo.fbx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/tikei_foo.fbx.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/RespawnPoint.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/RespawnPoint.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Scraps/BaseScrap.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Scraps/BaseScrap.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,6 +47,7 @@
     <setting file="file://$USER_HOME$/.jetbrains/acp.json" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/FBX/Post.shader" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Obstacles/Rail.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Obstacles/Updraft.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Obstacles/WaterArea.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/RB/buoyancy.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/interface/IDamageable.cs" root0="FORCE_HIGHLIGHTING" />
@@ -40,61 +59,61 @@
   </component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="3.12266458920218E-17" />
-      <entry key="MS500" value="5.085685608284121E-4" />
-      <entry key="S2" value="0.20831623275166597" />
-      <entry key="S5" value="0.9547909696095265" />
-      <entry key="S10" value="1.9556666416054809" />
-      <entry key="S30" value="5.682260383885882" />
-      <entry key="S60" value="10.974741498676122" />
-      <entry key="M2" value="18.99930867221879" />
-      <entry key="M5" value="31.447098888941312" />
-      <entry key="M10" value="40.72901443602355" />
-      <entry key="M15" value="47.61010970917967" />
-      <entry key="M30" value="64.52920488572089" />
-      <entry key="H1" value="91.81857489478318" />
-      <entry key="H2" value="141.9950604021177" />
-      <entry key="H4" value="252.62132783123735" />
-      <entry key="D1" value="799.9959138021666" />
-      <entry key="W1" value="1065.2047317712409" />
+      <entry key="MS100" value="1.0" />
+      <entry key="MS500" value="1.0000000000000029" />
+      <entry key="S2" value="1.0002524781850899" />
+      <entry key="S5" value="1.0485689963904286" />
+      <entry key="S10" value="1.3033264876040371" />
+      <entry key="S30" value="2.0654464976401514" />
+      <entry key="S60" value="2.617792837984153" />
+      <entry key="M2" value="3.646859928641862" />
+      <entry key="M5" value="5.694121002534107" />
+      <entry key="M10" value="7.037605837598647" />
+      <entry key="M15" value="7.610137978274532" />
+      <entry key="M30" value="8.26236850729889" />
+      <entry key="H1" value="9.148254584569395" />
+      <entry key="H2" value="19.951399501639308" />
+      <entry key="H4" value="80.39071195108163" />
+      <entry key="D1" value="664.9854737497958" />
+      <entry key="W1" value="1060.154549319966" />
     </decayedCancelled>
     <decayedSelected>
-      <entry key="MS100" value="1.0000000000426106" />
-      <entry key="MS500" value="1.008431470597691" />
-      <entry key="S2" value="1.3030233799068731" />
-      <entry key="S5" value="1.6224358956909426" />
-      <entry key="S10" value="1.838452222457604" />
-      <entry key="S30" value="2.795589990215343" />
-      <entry key="S60" value="4.670609542072571" />
-      <entry key="M2" value="7.694825684881556" />
-      <entry key="M5" value="11.881910860526894" />
-      <entry key="M10" value="14.57296266012586" />
-      <entry key="M15" value="16.526729143933043" />
-      <entry key="M30" value="21.978492262811375" />
-      <entry key="H1" value="33.349413217969996" />
-      <entry key="H2" value="55.69678534466545" />
-      <entry key="H4" value="98.19282548728337" />
-      <entry key="D1" value="277.1578235669264" />
-      <entry key="W1" value="359.99903935753105" />
+      <entry key="MS100" value="1.440954922295246E-97" />
+      <entry key="MS500" value="4.303032041814193E-20" />
+      <entry key="S2" value="2.0130642240397158E-5" />
+      <entry key="S5" value="0.026235512413283122" />
+      <entry key="S10" value="0.3154553333202112" />
+      <entry key="S30" value="1.716501714908207" />
+      <entry key="S60" value="2.759781519975505" />
+      <entry key="M2" value="3.9075551126788004" />
+      <entry key="M5" value="5.566419807181323" />
+      <entry key="M10" value="6.567996198087727" />
+      <entry key="M15" value="6.9881031620477065" />
+      <entry key="M30" value="7.463271543804194" />
+      <entry key="H1" value="7.914123825735561" />
+      <entry key="H2" value="12.172576268294224" />
+      <entry key="H4" value="35.5129617564327" />
+      <entry key="D1" value="235.31649274515098" />
+      <entry key="W1" value="363.4829802469862" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="1.87310512591216E-8" />
-      <entry key="MS500" value="0.031122796681252254" />
-      <entry key="S2" value="0.7891755595687941" />
-      <entry key="S5" value="2.084771599747989" />
-      <entry key="S10" value="3.431197666953242" />
-      <entry key="S30" value="8.168830743120715" />
-      <entry key="S60" value="15.360931535901697" />
-      <entry key="M2" value="26.469334565470618" />
-      <entry key="M5" value="43.19620754572709" />
-      <entry key="M10" value="55.21621814470873" />
-      <entry key="M15" value="64.06772611535463" />
-      <entry key="M30" value="86.4575652370894" />
-      <entry key="H1" value="125.13003551534811" />
-      <entry key="H2" value="197.6616419769686" />
-      <entry key="H4" value="350.78844518666574" />
-      <entry key="D1" value="1077.1417457959637" />
-      <entry key="W1" value="1425.201543032294" />
+      <entry key="MS100" value="0.19210939766100152" />
+      <entry key="MS500" value="0.7189682664234793" />
+      <entry key="S2" value="0.9210183218136843" />
+      <entry key="S5" value="1.0320132257109167" />
+      <entry key="S10" value="1.555410650803065" />
+      <entry key="S30" value="3.7007780806095734" />
+      <entry key="S60" value="5.311142075893371" />
+      <entry key="M2" value="7.497584223359926" />
+      <entry key="M5" value="11.21912370226221" />
+      <entry key="M10" value="13.57871408409354" />
+      <entry key="M15" value="14.578552222512286" />
+      <entry key="M30" value="15.714789861060895" />
+      <entry key="H1" value="17.05646784516846" />
+      <entry key="H2" value="32.11876036350058" />
+      <entry key="H4" value="115.89504338288873" />
+      <entry key="D1" value="900.2919157184169" />
+      <entry key="W1" value="1423.6352996917317" />
     </decayedShown>
   </component>
   <component name="ProjectColorInfo">{
@@ -236,6 +255,7 @@
       <workItem from="1786435732435" duration="9767000" />
       <workItem from="1786471715368" duration="233000" />
       <workItem from="1786514634756" duration="10159000" />
+      <workItem from="1786701719315" duration="5051000" />
     </task>
     <servers />
   </component>

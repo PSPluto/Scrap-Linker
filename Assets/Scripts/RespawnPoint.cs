@@ -7,6 +7,7 @@ public class RespawnPoint : MonoBehaviour
 
     [SerializeField] private float offset = 1f;
     [SerializeField] private bool isStartPoint = false;
+    [SerializeField] private GameObject hitParticlePrefab;
 
     private void Start()
     {
@@ -31,5 +32,6 @@ public class RespawnPoint : MonoBehaviour
         Vector3 newRespawnPos = (this.transform.forward * 1) + this.transform.position + new Vector3(0,1,0);
         PlayerController.Instance.respawnPos = newRespawnPos;
         Debug.Log($"セーブポイントが{newRespawnPos}");
+        Instantiate(hitParticlePrefab, this.transform.position + new Vector3(0,1.5f,0), Quaternion.identity);
     }
 }

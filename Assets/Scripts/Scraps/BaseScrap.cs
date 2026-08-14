@@ -1,3 +1,4 @@
+using System;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -57,6 +58,13 @@ public class BaseScrap : MonoBehaviour
 
     [Tooltip("まとまった状態の1要素か")] public bool isMerged;
     private bool _isMergedLast;
+    
+    public Vector3 startPosition;
+
+    private void Start()
+    {
+        startPosition = transform.position;
+    }
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -146,6 +154,14 @@ public class BaseScrap : MonoBehaviour
             }
             _lastState = scrapState;
         }
+        if (transform.position.y < -2f)
+        {
+            if (scrapState == ScrapState.Usually || scrapState == ScrapState.InFlight)
+            {
+                transform.position = startPosition;
+            }
+        }
+
     }
     private void StateUsuallyInit()
     {

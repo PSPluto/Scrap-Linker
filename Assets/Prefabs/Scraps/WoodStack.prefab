@@ -130,9 +130,7 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Scrap
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: -7511558181221131132, guid: 036583e47cd414a4fb875e2a714afbe4, type: 3}
-    - {fileID: -5754084199372789682, guid: 036583e47cd414a4fb875e2a714afbe4, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 036583e47cd414a4fb875e2a714afbe4, type: 3}
@@ -205,6 +203,7 @@ MonoBehaviour:
   myRb: {fileID: -7833451243788790335}
   damp: 2
   mass: 1
+  floatPower: 5
   weakDamage: 2
   weakHitThreshold: 3
   weakHitSound: {fileID: 8300000, guid: 36ff6e4e70a64c04c8aa1b448dd53266, type: 3}
@@ -221,6 +220,7 @@ MonoBehaviour:
   noDamageHitParticle: {fileID: 0}
   scrapState: 3
   isMerged: 0
+  startPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &-3790113230115709786
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -235,6 +235,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Buoyancy
   rb: {fileID: 0}
   upForce: 50
+  uprightTorque: 2
 --- !u!65 &3406817651629727294
 BoxCollider:
   m_ObjectHideFlags: 0
