@@ -50,6 +50,14 @@ public static class GameManager
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
             Debug.Log("ゲームオーバー");
         }
+        else
+        {
+            if (gameState == GameState.Clear)
+            {
+                
+            }
+            
+        }
     }
 
 

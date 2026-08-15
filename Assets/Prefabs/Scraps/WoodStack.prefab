@@ -203,7 +203,7 @@ MonoBehaviour:
   myRb: {fileID: -7833451243788790335}
   damp: 2
   mass: 1
-  floatPower: 5
+  floatPower: 1
   weakDamage: 2
   weakHitThreshold: 3
   weakHitSound: {fileID: 8300000, guid: 36ff6e4e70a64c04c8aa1b448dd53266, type: 3}
