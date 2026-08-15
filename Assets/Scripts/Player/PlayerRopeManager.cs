@@ -10,6 +10,7 @@ public class PlayerRopeManager : MonoBehaviour
     [Header("ロープ")] public List<RopeElement> towList = new List<RopeElement>();
     [Header("オブジェクトごとの間隔")]
     public float ropeLength = 5f;
+    [SerializeField] private AudioClip joinSE;
 
     bool isLeftClicked;
     bool isRightClicked;
@@ -120,6 +121,7 @@ public class PlayerRopeManager : MonoBehaviour
                 rb = collision.gameObject.GetComponent<Rigidbody>(),
                 scrapScript = scrap
             });
+            AudioManager.Instance.PlaySound(joinSE,collision.transform.position);
         }
     }
 

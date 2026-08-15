@@ -68,6 +68,11 @@ public class BaseScrap : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        if (scrapState == ScrapState.Tethered)
+        {
+            string tag = collision.gameObject.tag;
+            if (!(tag.StartsWith("Scrap/") || tag == "Scrap")) return;
+        }
         if (scrapState == ScrapState.Lifted)
         {
             return;
@@ -156,12 +161,18 @@ public class BaseScrap : MonoBehaviour
         }
         if (transform.position.y < -2f)
         {
-            if (scrapState == ScrapState.Usually || scrapState == ScrapState.InFlight)
-            {
-                transform.position = startPosition;
-            }
+                ResetPos();
+
         }
 
+    }
+
+    public void ResetPos()
+    {
+        if (scrapState == ScrapState.Usually || scrapState == ScrapState.InFlight)
+        {
+            transform.position = startPosition;
+        }
     }
     private void StateUsuallyInit()
     {

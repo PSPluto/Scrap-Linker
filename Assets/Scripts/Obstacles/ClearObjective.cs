@@ -10,6 +10,11 @@ public class ClearObjective : MonoBehaviour
     [SerializeField]private MeshRenderer repairMeshB;
     [SerializeField]private MeshRenderer repairMeshC;
 
+    // 進捗が変わった時に (現在の修理数, 総数) を通知
+    public static event Action<int, int> OnProgressChanged;
+    // クリアした時に通知
+    public static event Action OnCleared;
+
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag.StartsWith("Scrap/Parts"))
@@ -32,23 +37,25 @@ public class ClearObjective : MonoBehaviour
                     repairList[1] = true;
                     Destroy(collision.gameObject);
                     repairMeshB.enabled = true;
-
                     break;
                 
                 case "Scrap/Parts/C":
                     repairList[2] = true;
                     Destroy(collision.gameObject);
                     repairMeshC.enabled = true;
-                    
                     break;
                 
                 default:
                     break;
             }
 
+            // 進捗通知（n/3のnを算出して渡す）
+            OnProgressChanged?.Invoke(CountRepaired(), repairList.Length);
+
             if (CheckrepairList())
             {
                 GameManager.ChangeGameState(GameManager.GameState.Clear);
+                OnCleared?.Invoke();
             }
         }
     }
@@ -66,8 +73,18 @@ public class ClearObjective : MonoBehaviour
             {
                 return false;
             }
-
         }
         return true;
+    }
+
+    // 修理済みの数をカウント
+    private int CountRepaired()
+    {
+        int count = 0;
+        foreach (var element in repairList)
+        {
+            if (element) count++;
+        }
+        return count;
     }
 }

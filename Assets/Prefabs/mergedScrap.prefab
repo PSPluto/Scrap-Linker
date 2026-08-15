@@ -111,6 +111,7 @@ MonoBehaviour:
   myRb: {fileID: 9025851628090738508}
   damp: 0
   mass: 1
+  floatPower: 1
   weakDamage: 0
   weakHitThreshold: 5
   weakHitSound: {fileID: 0}
@@ -127,3 +128,4 @@ MonoBehaviour:
   noDamageHitParticle: {fileID: 381705452333847227, guid: db815f8702fc8044e9c68273b4518eb6, type: 3}
   scrapState: 3
   isMerged: 0
+  startPosition: {x: 0, y: 0, z: 0}

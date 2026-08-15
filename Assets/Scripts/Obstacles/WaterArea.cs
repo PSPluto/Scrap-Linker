@@ -15,6 +15,7 @@ public class WaterArea : MonoBehaviour
     [SerializeField] private float waterAngularDrag = 1f;
 
     private Collider waterCollider;
+    [SerializeField] private GameObject inWaterParticle;
 
     private void Awake()
     {
@@ -48,7 +49,7 @@ public class WaterArea : MonoBehaviour
         }
 
         Debug.Log($"[WaterArea] {other.gameObject.name} を浸水リストに追加しました");
-
+        Instantiate(inWaterParticle, other.transform.position, Quaternion.identity);
         submergedBodies[buoy] = new SubmergedBody
         {
             rb = buoy.rb,

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
@@ -20,7 +21,15 @@ public class PlayerController : MonoBehaviour , IDamageable
     public Animator playerAnimator;
 
     [Range(0.01f, 1f)]
-    public float accelerationSmooth = 0.1f;
+    public float accelerationSmooth = 0.5f;
+
+    [Header("空中制御（ジャンプ弱体化用）")]
+    [Tooltip("空中での移動速度倍率。1で地上と同じ、小さいほど空中移動が弱くなる")]
+    [Range(0.01f, 1f)]
+    public float airControlMultiplier = 0.5f;
+    [Tooltip("空中での加速の滑らかさ。小さいほど切り返しが鈍くなり、慣性が強く残る")]
+    [Range(0.01f, 1f)]
+    public float airAccelerationSmooth = 0.2f;
 
     [Header("回転設定")]
     public float rotationSpeed = 720f; // deg/sec
@@ -36,12 +45,23 @@ public class PlayerController : MonoBehaviour , IDamageable
     public float groundCheckOriginHeight = 0.1f;
     [Tooltip("飛ばす距離")]
     public float groundCheckDistance = 0.3f;
+    [Tooltip("接地判定の球体の半径")]
+    public float groundCheckRadius = 0.2f;
     public LayerMask groundLayer = ~0;
     public float jumpCooldown = 0.1f;
 
+    [Header("着地硬直（ジャンプ弱体化用）")]
+    [Tooltip("着地した瞬間から、この時間だけ移動加速をさらに鈍らせる")]
+    public float landingRecoverTime = 0.15f;
+    [Tooltip("着地硬直中の移動速度倍率")]
+    [Range(0.01f, 1f)]
+    public float landingSpeedMultiplier = 0.5f;
+
     private bool _isGrounded;
+    private bool _wasGroundedLastFixedUpdate = true;
     private bool _jumpQueued;
     private float _lastJumpTime = -999f;
+    private float _landingRecoverTimer = 0f;
 
     [FormerlySerializedAs("maxHP")] [Header("HP")]
     public float maxHp = 10;
@@ -72,6 +92,10 @@ public class PlayerController : MonoBehaviour , IDamageable
         _value = Vector2.zero;
         if (Keyboard.current != null)
         {
+            if (Keyboard.current.anyKey.wasPressedThisFrame)
+            {
+                ScoreManager.Instance.StartCount();
+            }
             if (Keyboard.current.wKey.isPressed) _value.y = 1f;
             if (Keyboard.current.sKey.isPressed) _value.y = -1f;
             if (Keyboard.current.aKey.isPressed) _value.x = -1f;
@@ -96,15 +120,17 @@ public class PlayerController : MonoBehaviour , IDamageable
     void FixedUpdate()
     {
         CheckGrounded();
+        UpdateLandingRecover();
         Move();
         TryJump();
     }
 
     private void CheckGrounded()
     {
-        Vector3 origin = transform.position + Vector3.up * groundCheckOriginHeight;
-        bool hitGround = Physics.Raycast(
+        Vector3 origin = transform.position + Vector3.up * (groundCheckOriginHeight + groundCheckRadius);
+        bool hitGround = Physics.SphereCast(
             origin,
+            groundCheckRadius,
             Vector3.down,
             out RaycastHit hit,
             groundCheckOriginHeight + groundCheckDistance,
@@ -112,17 +138,34 @@ public class PlayerController : MonoBehaviour , IDamageable
             QueryTriggerInteraction.Ignore
         );
 
-        // if (hitGround)
-        // {
-        //     Debug.Log($"Ground hit: {hit.collider.gameObject.name}, point: {hit.point}, normal: {hit.normal}, distance: {hit.distance}");
-        // }
-
         _isGrounded = hitGround;
 
         if (playerAnimator != null)
         {
             playerAnimator.SetBool(IsGrounded, _isGrounded);
         }
+    }
+
+    /// <summary>
+    /// 空中→着地の瞬間を検出して、着地硬直タイマーをセットする
+    /// </summary>
+    private void UpdateLandingRecover()
+    {
+        if (_isGrounded && !_wasGroundedLastFixedUpdate)
+        {
+            _landingRecoverTimer = landingRecoverTime;
+        }
+
+        if (_landingRecoverTimer > 0f)
+        {
+            _landingRecoverTimer -= Time.fixedDeltaTime;
+            if (_landingRecoverTimer < 0f)
+            {
+                _landingRecoverTimer = 0f;
+            }
+        }
+
+        _wasGroundedLastFixedUpdate = _isGrounded;
     }
 
     private void TryJump()
@@ -167,8 +210,18 @@ public class PlayerController : MonoBehaviour , IDamageable
     public void Move()
     {
         currentVelocity = Vector3.zero;
+
+        float debuffFactor = 1f - (1f - deBuffSpeedMultiplier) * (float)System.Convert.ToInt32(debuffTime > 0f);
+
+        // 空中では移動速度そのものを制限（歩くより有利にならないようにする）
+        float airFactor = _isGrounded ? 1f : airControlMultiplier;
+
+        // 着地直後は硬直として速度をさらに絞る
+        float landingFactor = (_isGrounded && _landingRecoverTimer > 0f) ? landingSpeedMultiplier : 1f;
+
         // 目標速度
-        Vector3 targetVelocity = new Vector3(_value.x * maxMoveSpeed, 0f, _value.y * maxMoveSpeed) * (1f - (1f - deBuffSpeedMultiplier) * (float)System.Convert.ToInt32(debuffTime > 0f));
+        Vector3 targetVelocity = new Vector3(_value.x * maxMoveSpeed, 0f, _value.y * maxMoveSpeed)
+                                  * debuffFactor * airFactor * landingFactor;
 
         // 現在の速度を取得（y無視）
         currentVelocity = new Vector3(playerRb.linearVelocity.x, 0f, playerRb.linearVelocity.z);
@@ -184,9 +237,11 @@ public class PlayerController : MonoBehaviour , IDamageable
         }
         playerAnimator.SetFloat(Speed, currentVelocity.magnitude);
 
+        // 空中では追従を鈍くする（＝慣性が強く残り、急な切り返しができなくなる）
+        float smooth = _isGrounded ? accelerationSmooth : airAccelerationSmooth;
 
         // 最高速度まで速度加算
-        Vector3 nextVelocity = Vector3.Lerp(currentVelocity, targetVelocity, accelerationSmooth);
+        Vector3 nextVelocity = Vector3.Lerp(currentVelocity, targetVelocity, smooth);
 
         if (targetVelocity.sqrMagnitude < 0.0001f && nextVelocity.magnitude < stopThreshold)
         {
@@ -208,9 +263,6 @@ public class PlayerController : MonoBehaviour , IDamageable
                 Quaternion.RotateTowards(playerRb.rotation, targetRot, rotationSpeed * Time.fixedDeltaTime)
             );
         }
-
-
-        //playerRB.rotation = Quaternion.Lerp(playerRB.rotation, Quaternion.Euler(0, 0, 0),0.2f);
     }
 
     public void TakeDamage(float damageAmount)
@@ -235,11 +287,13 @@ public class PlayerController : MonoBehaviour , IDamageable
 
     private void OnDrawGizmosSelected()
     {
-        Vector3 origin = transform.position + Vector3.up * groundCheckOriginHeight;
+        float radius = groundCheckRadius > 0f ? groundCheckRadius : 0.2f;
+        Vector3 origin = transform.position + Vector3.up * (groundCheckOriginHeight + radius);
         float totalDistance = groundCheckOriginHeight + groundCheckDistance;
 
         Gizmos.color = _isGrounded ? Color.green : Color.red;
+        Gizmos.DrawWireSphere(origin, radius);
         Gizmos.DrawLine(origin, origin + Vector3.down * totalDistance);
-        Gizmos.DrawWireSphere(origin, 0.03f);
+        Gizmos.DrawWireSphere(origin + Vector3.down * totalDistance, radius);
     }
 }
