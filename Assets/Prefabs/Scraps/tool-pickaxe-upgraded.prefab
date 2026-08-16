@@ -155,7 +155,7 @@ MonoBehaviour:
   myRb: {fileID: 2246255042632906754}
   damp: 2
   mass: 1
-  floatPower: 0
+  floatPower: 1
   weakDamage: 7
   weakHitThreshold: 3
   weakHitSound: {fileID: 8300000, guid: c0377e7eae5cd4f46899f89a379dbac7, type: 3}
