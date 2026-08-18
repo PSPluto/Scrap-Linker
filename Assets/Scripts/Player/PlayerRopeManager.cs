@@ -11,6 +11,7 @@ public class PlayerRopeManager : MonoBehaviour
     [Header("オブジェクトごとの間隔")]
     public float ropeLength = 5f;
     [SerializeField] private AudioClip joinSE;
+    [SerializeField] private AudioClip margeSE;
 
     bool isLeftClicked;
     bool isRightClicked;
@@ -37,13 +38,27 @@ public class PlayerRopeManager : MonoBehaviour
 
     private void Update()
     {
-        if (Mouse.current.leftButton.wasPressedThisFrame)
+        if (Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame)
         {
             isLeftClicked = true;
         }
-        if (Mouse.current.rightButton.wasPressedThisFrame)
+        if (Mouse.current != null && Mouse.current.rightButton.wasPressedThisFrame)
         {
             isRightClicked = true;
+        }
+
+        if (Gamepad.current != null)
+        {
+            // ZR：投げる
+            if (Gamepad.current.rightTrigger.wasPressedThisFrame)
+            {
+                isLeftClicked = true;
+            }
+            // ZL：まとめる
+            if (Gamepad.current.leftTrigger.wasPressedThisFrame)
+            {
+                isRightClicked = true;
+            }
         }
     }
 
@@ -196,6 +211,8 @@ public class PlayerRopeManager : MonoBehaviour
         AddDamageStats(towList[0].scrapScript, towList[1].scrapScript);
         
         towList.RemoveAt(1);
+        
+        AudioManager.Instance.PlaySound(margeSE,this.transform.position);
     }
 
     /// <summary>

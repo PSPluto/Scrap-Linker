@@ -54,6 +54,10 @@ public class ClearObjective : MonoBehaviour
 
             if (CheckrepairList())
             {
+                if (GameManager.gameState == GameManager.GameState.GameOver)
+                {
+                    return;
+                }
                 GameManager.ChangeGameState(GameManager.GameState.Clear);
                 OnCleared?.Invoke();
             }

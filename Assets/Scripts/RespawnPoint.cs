@@ -8,7 +8,7 @@ public class RespawnPoint : MonoBehaviour
     [SerializeField] private float offset = 1f;
     [SerializeField] private bool isStartPoint = false;
     [SerializeField] private GameObject hitParticlePrefab;
-
+    [SerializeField] private AudioClip setRespawnPointSound;
     private void Start()
     {
         if (isStartPoint)
@@ -19,9 +19,8 @@ public class RespawnPoint : MonoBehaviour
 
     void OnCollisionEnter( Collision collision)
     {
-        if (collision.relativeVelocity.magnitude < 2f)
+        if (PlayerController.Instance.respawnPos == (this.transform.forward * 1) + this.transform.position + new Vector3(0,1,0))
         {
-            Debug.Log($"何かが接触しましたが勢いが足りませんでした：{collision.relativeVelocity.magnitude}");
             return;
         }
         SetRespawnPoint();
@@ -33,5 +32,7 @@ public class RespawnPoint : MonoBehaviour
         PlayerController.Instance.respawnPos = newRespawnPos;
         Debug.Log($"セーブポイントが{newRespawnPos}");
         Instantiate(hitParticlePrefab, this.transform.position + new Vector3(0,1.5f,0), Quaternion.identity);
+        AudioManager.Instance.PlaySound(setRespawnPointSound,this.transform.position);
+
     }
 }

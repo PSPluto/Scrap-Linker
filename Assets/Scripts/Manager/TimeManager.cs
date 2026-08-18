@@ -63,6 +63,10 @@ public class ScoreManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (GameManager.gameState == GameManager.GameState.GameOver || GameManager.gameState == GameManager.GameState.Clear)
+        {
+            return;
+        }
         if (timeCountCoroutine == null)
         {
             scoreText.text = ($"移動でタイマースタート！");

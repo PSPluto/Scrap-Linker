@@ -2,18 +2,6 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
 
-/// <summary>
-/// クリア演出：
-/// ・GameManager.gameState が Clear になったら自動で「クリア！」を表示（フェードイン）
-/// ・数秒待機後、現在のシーンを再読み込みする
-///
-/// 使い方：
-/// 1. Canvas上に TextMeshProUGUI を用意し、最初はGameObjectを非表示にしておく
-/// 2. 空のGameObjectを作り、このスクリプトをアタッチ
-/// 3. Inspectorで clearText に上記TextMeshProUGUIをセット
-/// 4. あとは GameManager.ChangeGameState(GameManager.GameState.Clear) を呼ぶだけでOK
-///    （このスクリプトが自動でイベントを受け取り演出を開始する）
-/// </summary>
 public class ClearDirector : MonoBehaviour
 {
     public static ClearDirector Instance { get; private set; }
@@ -21,6 +9,7 @@ public class ClearDirector : MonoBehaviour
 
     [Header("表示するテキスト（TextMeshProUGUI）")]
     [SerializeField] private TMP_Text clearText;
+    [SerializeField] private RectTransform timeText;
 
     [Header("テキスト表示後、シーン再読み込みまでの待機秒数")]
     [SerializeField] private float waitSeconds = 3.0f;
@@ -102,11 +91,14 @@ public class ClearDirector : MonoBehaviour
                 t += Time.deltaTime;
                 c.a = Mathf.Clamp01(t / fadeDuration);
                 clearText.color = c;
+                timeText.anchoredPosition = Vector2.Lerp(timeText.anchoredPosition ,new Vector2(0,-100), 0.1f);
+
                 yield return null;
             }
 
             c.a = 1f;
             clearText.color = c;
+            Time.timeScale = 0f;
         }
 
         // 数秒待機

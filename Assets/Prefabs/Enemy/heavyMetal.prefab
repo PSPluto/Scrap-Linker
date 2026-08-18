@@ -124,6 +124,7 @@ MonoBehaviour:
   deathSound: {fileID: 8300000, guid: c547db80c0567714580bbda4474796bf, type: 3}
   damageSound: {fileID: 8300000, guid: c0377e7eae5cd4f46899f89a379dbac7, type: 3}
   attackSound: {fileID: 8300000, guid: a447b9c432496e34ebd1b952aef8c36c, type: 3}
+  atkParticle: {fileID: 3432958286849152088, guid: 87ee7299dd44ed747af24dbb91bcd33b, type: 3}
 --- !u!195 &1383848343292664090
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -134,7 +135,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 1.5
+  m_Speed: 2
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120

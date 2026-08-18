@@ -65,7 +65,7 @@ public class PlayerController : MonoBehaviour , IDamageable
 
     [FormerlySerializedAs("maxHP")] [Header("HP")]
     public float maxHp = 10;
-    private float _currentHp;
+    public float currentHp;
 
     [Header("移動速度の低下倍率")] public float deBuffSpeedMultiplier = 0.8f;
     [Header("移動速度の残りデバフ時間")] public float debuffTime = 0f;
@@ -84,17 +84,24 @@ public class PlayerController : MonoBehaviour , IDamageable
 
     private void Start()
     {
-        _currentHp = maxHp;
+        currentHp = maxHp;
     }
+
+    [Header("コントローラー設定")]
+    [Tooltip("スティックのデッドゾーン")]
+    [Range(0f, 0.9f)]
+    public float gamepadDeadzone = 0.15f;
 
     private void Update()
     {
         _value = Vector2.zero;
+        bool anyInputThisFrame = false;
+
         if (Keyboard.current != null)
         {
             if (Keyboard.current.anyKey.wasPressedThisFrame)
             {
-                ScoreManager.Instance.StartCount();
+                anyInputThisFrame = true;
             }
             if (Keyboard.current.wKey.isPressed) _value.y = 1f;
             if (Keyboard.current.sKey.isPressed) _value.y = -1f;
@@ -105,7 +112,41 @@ public class PlayerController : MonoBehaviour , IDamageable
             if (Keyboard.current.spaceKey.wasPressedThisFrame)
             {
                 _jumpQueued = true;
+                anyInputThisFrame = true;
             }
+        }
+
+        if (Gamepad.current != null)
+        {
+            Vector2 stick = Gamepad.current.leftStick.ReadValue();
+            if (stick.magnitude < gamepadDeadzone)
+            {
+                stick = Vector2.zero;
+            }
+            else
+            {
+                // デッドゾーン以降を0-1に再スケール
+                stick = stick.normalized * ((stick.magnitude - gamepadDeadzone) / (1f - gamepadDeadzone));
+            }
+
+            // キーボード入力が無ければスティック値を採用（両対応・キーボード優先）
+            if (_value == Vector2.zero && stick != Vector2.zero)
+            {
+                _value = stick;
+                anyInputThisFrame = true;
+            }
+
+            // ジャンプ（Aボタン / Southボタン）
+            if (Gamepad.current.buttonSouth.wasPressedThisFrame || Gamepad.current.buttonEast.wasPressedThisFrame)
+            {
+                _jumpQueued = true;
+                anyInputThisFrame = true;
+            }
+        }
+
+        if (anyInputThisFrame)
+        {
+            ScoreManager.Instance.StartCount();
         }
 
         if (_value.magnitude > 1f)
@@ -114,7 +155,7 @@ public class PlayerController : MonoBehaviour , IDamageable
         }
         if (transform.position.y < -2f)
         {
-            TakeDamage(_currentHp);
+            TakeDamage(currentHp);
         }
     }
     void FixedUpdate()
@@ -140,7 +181,7 @@ public class PlayerController : MonoBehaviour , IDamageable
 
         _isGrounded = hitGround;
 
-        if (playerAnimator != null)
+        if (playerAnimator)
         {
             playerAnimator.SetBool(IsGrounded, _isGrounded);
         }
@@ -220,8 +261,7 @@ public class PlayerController : MonoBehaviour , IDamageable
         float landingFactor = (_isGrounded && _landingRecoverTimer > 0f) ? landingSpeedMultiplier : 1f;
 
         // 目標速度
-        Vector3 targetVelocity = new Vector3(_value.x * maxMoveSpeed, 0f, _value.y * maxMoveSpeed)
-                                  * debuffFactor * airFactor * landingFactor;
+        Vector3 targetVelocity = new Vector3(_value.x * maxMoveSpeed, 0f, _value.y * maxMoveSpeed) * (debuffFactor * airFactor * landingFactor);
 
         // 現在の速度を取得（y無視）
         currentVelocity = new Vector3(playerRb.linearVelocity.x, 0f, playerRb.linearVelocity.z);
@@ -267,10 +307,10 @@ public class PlayerController : MonoBehaviour , IDamageable
 
     public void TakeDamage(float damageAmount)
     {
-        _currentHp -= damageAmount;
+        currentHp -= damageAmount;
         AudioManager.Instance.PlaySound(damageSound, transform.position);
-        Debug.Log($"Player HP: {_currentHp}/{maxHp}");
-        if (_currentHp <= 0)
+        Debug.Log($"Player HP: {currentHp}/{maxHp}");
+        if (currentHp <= 0)
         {
             Respawn();
         }
@@ -281,7 +321,7 @@ public class PlayerController : MonoBehaviour , IDamageable
         playerRb.isKinematic = true;
         this.gameObject.GetComponent<PlayerRopeManager>().dropAllScrap();
         transform.position = respawnPos;
-        _currentHp = maxHp;
+        currentHp = maxHp;
         playerRb.isKinematic = false;
     }
 

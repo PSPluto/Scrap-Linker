@@ -27,7 +27,18 @@ public class CameraTracker : MonoBehaviour
 
         follower.FollowTo(Vector3.Lerp(target.position, castPos, width));
         // tensileApplier.ApplyForceAt(castPos);
-        if (Mouse.current.middleButton.isPressed)
+        bool lookAroundHeld = (Mouse.current != null && Mouse.current.middleButton.isPressed) ||
+            (Gamepad.current != null && (
+                Gamepad.current.leftStickButton.isPressed || 
+                Gamepad.current.rightStickButton.isPressed || 
+                Gamepad.current.leftShoulder.isPressed ||
+                Gamepad.current.rightShoulder.isPressed ||
+                Gamepad.current.buttonNorth.isPressed ||
+                Gamepad.current.buttonWest.isPressed
+            )
+        );
+
+        if (lookAroundHeld)
         {
             currentWidth = Mathf.Lerp(currentWidth, 0f, 0.5f);
             follower.currentOffset = Vector3.Lerp(follower.currentOffset, new Vector3(0f,10f,-5f), 0.2f);

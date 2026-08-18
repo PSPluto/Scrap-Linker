@@ -50,6 +50,7 @@ MonoBehaviour:
   offset: 2
   isStartPoint: 0
   hitParticlePrefab: {fileID: 5112403345868107898, guid: 6f34ef0d986e9db4199cf75805f79753, type: 3}
+  setRespawnPointSound: {fileID: 8300000, guid: 4088d5ce5b9bde44a9ec0ca59f6a8a32, type: 3}
 --- !u!136 &87392197169188564
 CapsuleCollider:
   m_ObjectHideFlags: 0
